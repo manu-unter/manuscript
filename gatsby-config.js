@@ -1,9 +1,9 @@
 module.exports = {
   siteMetadata: {
-    title: 'manuhornung.dev',
+    title: 'manuscript',
     author: 'Manuel Hornung',
     description: 'Personal blog by Manuel Hornung',
-    siteUrl: 'https://manuhornung-dev.now.sh/',
+    siteUrl: 'https://manuscript.now.sh/',
     social: {
       twitter: '@dan_abramov',
     },
@@ -80,7 +80,7 @@ module.exports = {
               return allMarkdownRemark.edges.map(edge => {
                 const siteUrl = site.siteMetadata.siteUrl;
                 const postText = `
-                <div style="margin-top=55px; font-style: italic;">(This is an article posted to my blog at manuhornung-dev.now.sh. You can read it online by <a href="${siteUrl +
+                <div style="margin-top=55px; font-style: italic;">(This is an article posted to my blog at manuscript.now.sh. You can read it online by <a href="${siteUrl +
                   edge.node.fields.slug}">clicking here</a>.)</div>
               `;
 
@@ -126,7 +126,7 @@ module.exports = {
               }
             `,
             output: '/rss.xml',
-            title: "manuhornung.dev Blog RSS Feed",
+            title: 'manuscript Blog RSS Feed',
           },
         ],
       },
@@ -134,7 +134,7 @@ module.exports = {
     {
       resolve: `gatsby-plugin-ebook`,
       options: {
-        filename: 'manuhornung.dev-ebook.epub',
+        filename: 'manuscript-ebook.epub',
         query: `
           {
             site {
@@ -165,8 +165,8 @@ module.exports = {
     {
       resolve: `gatsby-plugin-manifest`,
       options: {
-        name: `manuhornung.dev`,
-        short_name: `manuhornung.dev`,
+        name: `manuscript`,
+        short_name: `manuscript`,
         start_url: `/`,
         background_color: `#ffffff`,
         theme_color: `#ffa7c4`,

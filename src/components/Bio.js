@@ -22,9 +22,10 @@ class Bio extends React.Component {
             borderRadius: '50%',
           }}
         />
-        <p style={{ maxWidth: 310 }}>
+        <p>
           Personal blog by{' '}
-          <a href="https://mobile.twitter.com/manuhornung">Manuel Hornung</a>.
+          <a href="https://mobile.twitter.com/manuhornung">Manuel Hornung</a>,{' '}
+          trying to improve our web applications
         </p>
       </div>
     );

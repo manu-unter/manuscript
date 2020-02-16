@@ -1,12 +1,12 @@
 {
-  "name": "manuhornung.dev",
+  "name": "manuscript",
   "private": true,
   "engines": {"node": "12.x"},
   "description": "My personal blog",
   "version": "1.0.0",
   "author": "Manuel Hornung <manuel@hornung.in>",
   "bugs": {
-    "url": "https://github.com/manuhornung/manuhornung.dev/issues"
+    "url": "https://github.com/manuhornung/manuscript/issues"
   },
   "dependencies": {
     "gatsby": "^2.0.76",
@@ -48,7 +48,7 @@
     "glob": "^7.1.3",
     "prettier": "^1.14.2"
   },
-  "homepage": "https://manuhornung-dev.now.sh/",
+  "homepage": "https://manuscript.now.sh/",
   "license": "MIT",
   "scripts": {
     "dev": "gatsby develop",

@@ -12,6 +12,7 @@ body.light {
   --inlineCode-bg: #339cec33;
   --inlineCode-text: #403f53;
   --form-shadow: 0 2px 15px 0 rgba(210, 214, 220, 0.5);
+  --textSelection: rgba(211, 232, 248, 0.5);
 }
 
 body.dark {
@@ -118,25 +119,25 @@ pre[class*='language-'] {
 
 pre[class*='language-']::-moz-selection {
   /* Firefox */
-  background: hsl(207, 4%, 16%);
+  background: var(--textSelection);
 }
 
 pre[class*='language-']::selection {
   /* Safari */
-  background: hsl(207, 4%, 16%);
+  background: var(--textSelection);
 }
 
 /* Text Selection colour */
 pre[class*='language-']::-moz-selection,
 pre[class*='language-'] ::-moz-selection {
   text-shadow: none;
-  background: hsla(0, 0%, 100%, 0.15);
+  background: var(--textSelection);
 }
 
 pre[class*='language-']::selection,
 pre[class*='language-'] ::selection {
   text-shadow: none;
-  background: hsla(0, 0%, 100%, 0.15);
+  background: var(--textSelection);
 }
 
 /* Inline code */

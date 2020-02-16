@@ -36,7 +36,7 @@ class BlogIndexTemplate extends React.Component {
                     }}
                   >
                     <Link
-                      style={{ boxShadow: 'none' }}
+                      style={{ boxShadow: 'none', textDecoration: 'none' }}
                       to={node.fields.slug}
                       rel="bookmark"
                     >
