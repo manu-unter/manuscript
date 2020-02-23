@@ -17,14 +17,8 @@ export const loadFontsForCode = code => {
   switch (code) {
     case 'ru':
     case 'bg':
-      import('../fonts/fonts-shared.cyrillic.css');
-      import('../fonts/fonts-post.cyrillic.css');
       break;
     case 'uk':
-      import('../fonts/fonts-shared.cyrillic.css');
-      import('../fonts/fonts-post.cyrillic.css');
-      import('../fonts/fonts-shared.latin-ext.css');
-      import('../fonts/fonts-post.latin-ext.css');
       break;
     case 'cs':
     case 'da':
@@ -44,18 +38,12 @@ export const loadFontsForCode = code => {
     case 'sq':
     case 'sv':
     case 'tr':
-      import('../fonts/fonts-shared.latin-ext.css');
-      import('../fonts/fonts-post.latin-ext.css');
       break;
     case 'vi':
-      import('../fonts/fonts-shared.vietnamese.css');
-      import('../fonts/fonts-post.vietnamese.css');
       break;
     case 'fa':
-      import('../fonts/fonts-post.persian.css');
       break;
     case 'ar':
-      import('../fonts/fonts-post.arabic.css');
       break;
     default:
       break;

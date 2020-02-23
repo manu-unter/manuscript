@@ -1,10 +1,12 @@
-import '../fonts/fonts-shared.css';
 import './global.css';
 
 import Typography from 'typography';
 import Wordpress2016 from 'typography-theme-wordpress-2016';
 
 Wordpress2016.overrideThemeStyles = () => ({
+  'h1, h2, h3, h4, h5, h6': {
+    fontFamily: 'Coming Soon, Georgia, serif',
+  },
   a: {
     color: 'var(--textLink)',
     textDecoration: 'underline',

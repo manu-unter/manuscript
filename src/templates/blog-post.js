@@ -2,7 +2,6 @@ import React from 'react';
 import { Link, graphql } from 'gatsby';
 import get from 'lodash/get';
 
-import '../fonts/fonts-post.css';
 import Bio from '../components/Bio';
 import Layout from '../components/Layout';
 import SEO from '../components/SEO';
@@ -190,7 +189,7 @@ class BlogPostTemplate extends React.Component {
         <aside>
           <h3
             style={{
-              fontFamily: 'Montserrat, sans-serif',
+              fontFamily: 'Coming Soon, sans-serif',
               marginTop: rhythm(0.25),
             }}
           >

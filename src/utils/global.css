@@ -71,12 +71,12 @@ body:lang(he) blockquote {
 /* styles for Persian language */
 body:lang(fa) article,
 body:lang(fa) header > h1 {
-  font-family: 'Vazir';
+  font-family: sans-serif;
 }
 /* styles for Arabic language */
 body:lang(ar) article,
 body:lang(ar) header > h1 {
-  font-family: 'Cairo', sans-serif;
+  font-family: sans-serif;
 }
 
 body:lang(ko) header,
