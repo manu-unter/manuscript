@@ -13,6 +13,13 @@ body.light {
   --inlineCode-text: #403f53;
   --form-shadow: 0 2px 15px 0 rgba(210, 214, 220, 0.5);
   --textSelection: rgba(211, 232, 248, 0.5);
+  --comment: #989fb1;
+  --codeTokenA: #994cc3;
+  --codeTokenB: #4876d6;
+  --codeTokenC: #c96765;
+  --codeTokenD: #0c969b;
+  --codeTokenE: #aa0982;
+  --codeHighlightBg: #dedede;
 }
 
 body.dark {
@@ -27,6 +34,14 @@ body.dark {
   --inlineCode-bg: #f6bbe533;
   --inlineCode-text: #d6deeb;
   --form-shadow: 0 2px 15px 0 rgba(26, 26, 27, 0.637);
+  --textSelection: rgba(126, 87, 194, 0.35);
+  --comment: #637777;
+  --codeTokenA: #c792ea;
+  --codeTokenB: #82aaff;
+  --codeTokenC: #ecc48d;
+  --codeTokenD: #7fdbca;
+  --codeTokenE: #f78c6c;
+  --codeHighlightBg: hsla(207, 95%, 15%, 1);
 }
 
 /*
@@ -89,7 +104,7 @@ body:lang(ko) article {
  */
 code[class*='language-'],
 pre[class*='language-'] {
-  color: #d6deeb;
+  color: var(--textNormal);
   background: none;
   font-family: Consolas, Menlo, Monaco, source-code-pro, Courier New, monospace;
   font-feature-settings: normal;
@@ -150,64 +165,66 @@ pre[class*='language-'] ::selection {
 }
 
 .token.attr-name {
-  color: rgb(173, 219, 103);
+  color: var(--codeTokenB);
   font-style: italic;
 }
 
 .token.comment {
-  color: #637777;
+  color: var(--comment);
 }
 
 .token.string,
 .token.url {
-  color: rgb(173, 219, 103);
+  color: var(--codeTokenC);
 }
 
 .token.variable {
-  color: rgb(214, 222, 235);
+  color: var(--codeTokenB);
 }
 
 .token.number {
-  color: rgb(247, 140, 108);
+  color: var(--codeTokenE);
 }
 
 .token.builtin,
 .token.char,
 .token.constant,
 .token.function {
-  color: rgb(130, 170, 255);
-}
-
-.token.punctuation {
-  color: #d6deeb;
+  color: var(--codeTokenB);
 }
 
 .token.selector,
 .token.doctype {
-  color: rgb(199, 146, 234);
+  color: var(--codeTokenB);
   font-style: 'italic';
 }
 
 .token.class-name {
-  color: rgb(255, 203, 139);
+  color: var(--codeTokenB);
 }
 
-.token.tag,
-.token.operator,
+.token.operator {
+  color: var(--codeTokenA);
+}
+
+.token.tag {
+  color: var(--codeTokenD);
+}
+
 .token.keyword {
-  color: #c792ea;
+  color: var(--codeTokenA);
 }
 
 .token.boolean {
-  color: rgb(255, 88, 116);
+  color: var(--codeTokenC);
 }
 
 .token.property {
-  color: rgb(128, 203, 196);
+  color: var(--codeTokenD);
 }
 
 .token.namespace {
-  color: rgb(178, 204, 214);
+  color: var(--codeTokenD);
 }
 
 pre[data-line] {
@@ -216,7 +233,7 @@ pre[data-line] {
 }
 
 .gatsby-highlight-code-line {
-  background-color: hsla(207, 95%, 15%, 1);
+  background-color: var(--codeHighlightBg);
   display: block;
   margin-right: -1.3125rem;
   margin-left: -1.3125rem;
@@ -230,7 +247,7 @@ pre[data-line] {
   margin-left: -1.3125rem;
   margin-right: -1.3125rem;
   border-radius: 10px;
-  background: #011627;
+  background-color: var(--bg-secondary);
   -webkit-overflow-scrolling: touch;
   overflow: auto;
 }
