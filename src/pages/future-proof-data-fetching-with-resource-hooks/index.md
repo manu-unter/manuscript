@@ -270,15 +270,18 @@ In any case though, the `useEffect` hook will trigger a refetching of the tweet.
 
 There are applications in which you _absolutely_ need to avoid unnecessary rerenders. For such cases, you should know that the `useTweet` hook will now cause a rerender on _every_ cache update. We will be able to avoid this once the [useContextSelector](https://github.com/reactjs/rfcs/pull/119) hook lands. Until then, you might want to [take other measures for optimization](https://github.com/facebook/react/issues/15156#issuecomment-474590693).
 
-With this refactoring, the most important advantage behind resource hooks became visible. We moved all our resources into a central cache without changing a single component.
+## The Bottom Line
 
-Even for the liking feature, we only touched components for changes in the rendered UI. We also did not have to think of any future scenarios when setting up our data fetching in the first place.
+With this refactoring, the most important advantage behind resource hooks became visible. We moved all our resources into a central cache _without changing a single component_. If we ever want to introduce an external state container, we can do so in the same way. But we don't _have to_ do it, especially not right from the start.
 
-This only worked because the resource hook - and not a component - decides
+When adding the liking feature, we also only touched components for changes in the rendered UI.
+
+All this only works because the resource hook - and not a component - decides
 - when to fetch the resource
 - where to store it
 - when to update it
 - if and how to share it
+
 It allows us to gradually expand the logic inside our hook as our requirements grow. 
 
 I’ve been using this pattern on my current project for the past year and I’ve been really happy with it. Give it shot, and let me know how it goes! Or if you rather wouldn’t, let me know why!
