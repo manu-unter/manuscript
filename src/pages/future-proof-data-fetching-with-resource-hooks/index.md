@@ -7,7 +7,7 @@ cta: 'react'
 
 I have been using very complex patterns for data fetching in React for a long time. Even for simple one-off fetching, I would bring in Redux- and Redux-Thunk. I wanted to avoid "refactoring everything" if our requirements became more sophisticated.
 
-Even worse, I connected the external state container directly to each component. Every component had its own lifecycle method for starting the fetching of a resource. The same with the selectors. I had to change every single `mapStateToProps` function to show independent loading states.
+Even worse, I connected the external state container directly to each component. Every component had its own lifecycle method for starting the fetching of a resource. The same with the selectors. I had to change every single `mapStateToProps` function to introduce independent loading states.
 
 This is not an issue with the library itself but one with how I used it. React offers excellent ways to build non-leaking abstractions for data fetching. Especially with hooks, we don't even need an external state container. A small start with all the options for expansion.
 
@@ -20,26 +20,26 @@ This is probably the most common use-case and often where applications start off
 Let’s take a look at this bare-bones twitter post component:
 ```jsx{2}
 function TweetDetails({ tweetId }) {
-    const { tweet, tweetFetchingError } = useTweet(tweetId);
+  const { tweet, tweetFetchingError } = useTweet(tweetId);
 
-    if (tweetFetchingError != null) {
-        return (
-            <p>
-                There was an error fetching the Tweet: {tweetFetchingError.message}
-            </p>
-        );
-    }
-
-    if (tweet == null) {
-        return <p>Fetching Tweet...</p>;
-    }
-
+  if (tweetFetchingError != null) {
     return (
-        <>
-            <p>{tweet.text}</p>
-            <p>{tweet.favorite_count} 🤍</p>
-        </>
+      <p>
+        There was an error fetching the Tweet: {tweetFetchingError.message}
+      </p>
     );
+  }
+
+  if (tweet == null) {
+    return <p>Fetching Tweet...</p>;
+  }
+
+  return (
+    <>
+      <p>{tweet.text}</p>
+      <p>{tweet.favorite_count} 🤍</p>
+    </>
+  );
 }
 ```
 Note that the component itself does not do any data fetching. No lifecycle methods, effects, or even state have been set up here. It only consumes a useTweet hook and maps the possible return values to a UI representation.
@@ -53,24 +53,24 @@ Let’s have a look at how we could implement the hook:
 
 ```jsx{11,17}
 function useTweet(tweetId) {
-    const [tweet, setTweet] = useState(null);
-    const [tweetFetchingError, setTweetFetchingError] = useState(null);
-    const latestTweetId = useRef(null);
+  const [tweet, setTweet] = useState(null);
+  const [tweetFetchingError, setTweetFetchingError] = useState(null);
+  const latestTweetId = useRef(null);
 
-    useEffect(async () => {
-        try {
-            latestTweetId.current = tweetId;
-            const fetchedTweet = await fetchTweet(tweetId);
+  useEffect(async () => {
+    try {
+      latestTweetId.current = tweetId;
+      const fetchedTweet = await fetchTweet(tweetId);
 
-            if (latestTweetId.current === fetchedTweet.id) {
-                setTweet(fetchedTweet);
-            }
-        } catch (fetchingError) {
-            setTweetFetchingError(fetchingError);
-        }
-    }, [tweetId, fetchTweet]);
+      if (latestTweetId.current === fetchedTweet.id) {
+        setTweet(fetchedTweet);
+      }
+    } catch (fetchingError) {
+      setTweetFetchingError(fetchingError);
+    }
+  }, [tweetId, fetchTweet]);
 
-    return { tweet, tweetFetchingError };
+  return { tweet, tweetFetchingError };
 }
 ```
 The `useEffect` hook implements the “fetch-on-render” strategy. It triggers a new fetch after the first render or whenever the `tweetId` parameter changes. The [dependencies array](https://reactjs.org/docs/hooks-effect.html#tip-optimizing-performance-by-skipping-effects) given to useEffect makes sure of that.
@@ -91,43 +91,43 @@ To like a tweet, we need to make another HTTP request. Only this time, it’s th
 The extended tweet component could look like this:
 ```jsx{2,19,21}
 function TweetDetails({ tweetId }) {
-    const { tweet, tweetFetchingError, likeTweet, unlikeTweet } = useTweet(tweetId);
+  const { tweet, tweetFetchingError, likeTweet, unlikeTweet } = useTweet(tweetId);
 
-    if (tweetFetchingError != null) {
-        return (
-            <p>
-                There was an error fetching the Tweet: {tweetFetchingError.message}
-            </p>
-        );
-    }
-
-    if (tweet == null) {
-        return <p>Fetching Tweet...</p>;
-    }
-
-    async function toggleLike() {
-        try {
-            if (tweet.favorited) {
-                await unlikeTweet();
-            } else {
-                await likeTweet();
-            }
-        } catch (error) {
-            alert(`Something went wrong: ${error.message}`);
-        }
-    }
-
+  if (tweetFetchingError != null) {
     return (
-        <>
-            <p>{tweet.text}</p>
-            <p>
-                {tweet.favorite_count}
-                <button type="button" onClick={toggleLike}>
-                    {tweet.favorited ? ❤ : 🤍}
-                </button>
-            </p>
-        </>
+      <p>
+        There was an error fetching the Tweet: {tweetFetchingError.message}
+      </p>
     );
+  }
+
+  if (tweet == null) {
+    return <p>Fetching Tweet...</p>;
+  }
+
+  async function toggleLike() {
+    try {
+      if (tweet.favorited) {
+        await unlikeTweet();
+      } else {
+        await likeTweet();
+      }
+    } catch (error) {
+      alert(`Something went wrong: ${error.message}`);
+    }
+  }
+
+  return (
+    <>
+      <p>{tweet.text}</p>
+      <p>
+        {tweet.favorite_count}
+        <button type="button" onClick={toggleLike}>
+          {tweet.favorited ? ❤ : 🤍}
+        </button>
+      </p>
+    </>
+  );
 }
 ```
 We added two new functions to the public interface of the `useTweet` hook. These are not common global functions that we import from an API utility wrapper. We return them from the hook! We will see in a minute why this is important.
@@ -139,32 +139,32 @@ Note that the `tweetFetchingError` should not change when something goes wrong w
 The implementation of these two new functions could look as follows:
 ```jsx{8,11,16,18,25,26}
 function useTweet(tweetId) {
-    const [tweet, setTweet] = useState(null);
-    const [tweetFetchingError, setTweetFetchingError] = useState(null);
-    const latestTweetId = useRef(null);
+  const [tweet, setTweet] = useState(null);
+  const [tweetFetchingError, setTweetFetchingError] = useState(null);
+  const latestTweetId = useRef(null);
 
-    useEffect(/* same as before */);
+  useEffect(/* same as before */);
 
-    async function likeAndStoreUpdatedTweet() {
-        const updatedTweet = await likeTweet(tweetId);
-        if (latestTweetId.current === updatedTweet.id) {
-            setTweet(updatedTweet);
-        }
+  async function likeAndStoreUpdatedTweet() {
+    const updatedTweet = await likeTweet(tweetId);
+    if (latestTweetId.current === updatedTweet.id) {
+      setTweet(updatedTweet);
     }
+  }
 
-    async function unlikeAndStoreUpdatedTweet() {
-        const updatedTweet = await unlikeTweet(tweetId);
-        if (latestTweetId.current === updatedTweet.id) {
-            setTweet(updatedTweet);
-        }
+  async function unlikeAndStoreUpdatedTweet() {
+    const updatedTweet = await unlikeTweet(tweetId);
+    if (latestTweetId.current === updatedTweet.id) {
+      setTweet(updatedTweet);
     }
+  }
 
-    return {
-        tweet,
-        tweetFetchingError,
-        likeTweet: likeAndStoreUpdatedTweet,
-        unlikeTweet: unlikeAndStoreUpdatedTweet,
-    };
+  return {
+    tweet,
+    tweetFetchingError,
+    likeTweet: likeAndStoreUpdatedTweet,
+    unlikeTweet: unlikeAndStoreUpdatedTweet,
+  };
 }
 ```
 In the `(un)likeAndStoreUpdatedTweet` functions, we use Promise-based `(un)likeTweet` functions. They mark the tweet as liked or not on the server and resolve with the complete updated resource from the back end. This is possible because the Twitter API responds with the updated tweet when we send a [like](https://developer.twitter.com/en/docs/tweets/post-and-engage/api-reference/post-favorites-create) or [unlike](https://developer.twitter.com/en/docs/tweets/post-and-engage/api-reference/post-favorites-destroy) request. Many REST APIs follow this pattern to avoid extra round trips.
@@ -197,67 +197,67 @@ We need to make sure that both components use the exact same copy of the resourc
 const tweetCacheContext = createContext({});
 
 function TweetCacheProvider({ children }) {
-    const [tweetCache, setTweetCache] = useState({});
+  const [tweetCache, setTweetCache] = useState({});
 
-    function getCachedTweet(tweetId) {
-        return tweetCache[tweetId];
-    }
+  function getCachedTweet(tweetId) {
+    return tweetCache[tweetId];
+  }
 
-    function cacheTweet(tweet) {
-        const updatedTweetCache = {
-            ...tweetCache,
-            [tweet.id]: tweet,
-        };
-        setTweetCache(updatedTweetCache);
-    }
+  function cacheTweet(tweet) {
+    const updatedTweetCache = {
+      ...tweetCache,
+      [tweet.id]: tweet,
+    };
+    setTweetCache(updatedTweetCache);
+  }
 
-    return (
-        <tweetCacheContext.Provider value={{ getCachedTweet, cacheTweet }}>
-            {children}
-        </tweetCacheContext.Provider>
-    );
+  return (
+    <tweetCacheContext.Provider value={{ getCachedTweet, cacheTweet }}>
+      {children}
+    </tweetCacheContext.Provider>
+  );
 }
 ```
 With a `<TweetCacheProvider>` at a common point above our components, we can adapt the hook:
 ```jsx{2,12,22,29,34}
 function useTweet(tweetId) {
-    const { getCachedTweet, cacheTweet } = useContext(tweetCacheContext);
-    const [tweetFetchingError, setTweetFetchingError] = useState(null);
-    const latestTweetId = useRef(null);
+  const { getCachedTweet, cacheTweet } = useContext(tweetCacheContext);
+  const [tweetFetchingError, setTweetFetchingError] = useState(null);
+  const latestTweetId = useRef(null);
 
-    useEffect(async () => {
-        try {
-            latestTweetId.current = tweetId;
-            const fetchedTweet = await fetchTweet(tweetId);
+  useEffect(async () => {
+    try {
+      latestTweetId.current = tweetId;
+      const fetchedTweet = await fetchTweet(tweetId);
 
-            if (latestTweetId.current === fetchedTweet.id) {
-                cacheTweet(fetchedTweet);
-            }
-        } catch (fetchingError) {
-            setTweetFetchingError(fetchingError);
-        }
-    }, [tweetId, fetchTweet, cacheTweet]);
-
-    async function likeAndStoreUpdatedTweet() {
-        const updatedTweet = await likeTweet(tweetId);
-        if (latestTweetId.current === updatedTweet.id) {
-            cacheTweet(updatedTweet);
-        }
+      if (latestTweetId.current === fetchedTweet.id) {
+        cacheTweet(fetchedTweet);
+      }
+    } catch (fetchingError) {
+      setTweetFetchingError(fetchingError);
     }
+  }, [tweetId, fetchTweet, cacheTweet]);
 
-    async function unlikeAndStoreUpdatedTweet() {
-        const updatedTweet = await unlikeTweet(tweetId);
-        if (latestTweetId.current === updatedTweet.id) {
-            cacheTweet(updatedTweet);
-        }
+  async function likeAndStoreUpdatedTweet() {
+    const updatedTweet = await likeTweet(tweetId);
+    if (latestTweetId.current === updatedTweet.id) {
+      cacheTweet(updatedTweet);
     }
+  }
 
-    return {
-        tweet: getCachedTweet(tweetId),
-        tweetFetchingError,
-        likeTweet: likeAndStoreUpdatedTweet,
-        unlikeTweet: unlikeAndStoreUpdatedTweet,
-    };
+  async function unlikeAndStoreUpdatedTweet() {
+    const updatedTweet = await unlikeTweet(tweetId);
+    if (latestTweetId.current === updatedTweet.id) {
+      cacheTweet(updatedTweet);
+    }
+  }
+
+  return {
+    tweet: getCachedTweet(tweetId),
+    tweetFetchingError,
+    likeTweet: likeAndStoreUpdatedTweet,
+    unlikeTweet: unlikeAndStoreUpdatedTweet,
+  };
 }
 ```
 Instead of local state directly in a `useState` hook, the single source of truth now lies in the tweet cache in the context provider. This means there is always only one version of a tweet - the one from the latest fetch or update, no matter which component it came from.
