@@ -262,3 +262,7 @@ pre[data-line] {
   float: left;
   min-width: 100%;
 }
+
+.gatsby-image-wrapper {
+  margin-bottom: 1.75rem;
+}

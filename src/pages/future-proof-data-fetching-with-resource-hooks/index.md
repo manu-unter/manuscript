@@ -1,15 +1,19 @@
 ---
 title: Future-Proof Data Fetching with Resource Hooks
 date: '2020-02-23'
-spoiler: 'Starting small but staying extensible by using the built-in reactivity and primitives in React - no additional library required'
+spoiler: 'Starting small but staying extensible. Only using the built-in reactivity and primitives in React - no additional library required'
 cta: 'react'
+heroImageCaption: 'Encapsulation of data fetching is healthy for your application'
+heroImageAlt: 'Several medical capsules'
 ---
 
 I have been using very complex patterns for data fetching in React for a long time. Even for simple one-off fetching, I would bring in Redux- and Redux-Thunk. I wanted to avoid "refactoring everything" if our requirements became more sophisticated.
 
-Even worse, I connected the external state container directly to each component. Every component had its own lifecycle method for starting the fetching of a resource. The same with the selectors. I had to change every single `mapStateToProps` function to introduce independent loading states.
+I didn't manage to avoid refactoring, though. Even worse, my abstractions introduced more refactorings rather than less. I had connected the external state container directly to each component and its lifecycle. To introduce independent loading states, for example, I had to change every single `mapStateToProps` function.
 
-This is not an issue with the library itself but one with how I used it. React offers excellent ways to build non-leaking abstractions for data fetching. Especially with hooks, we don't even need an external state container. A small start with all the options for expansion.
+This is not an issue with the library itself but one with how I used it. React offers excellent ways to build non-leaking abstractions for data fetching. Especially with hooks, we don't even need an external state container.
+
+With what I've come to call resource hooks, you can encapsulate all data fetching. That allows you to start small and increase complexity only when the requirements actually change. No need to assume anything about the future.
 
 Let’s dive into it: Starting small.
 

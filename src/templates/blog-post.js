@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link, graphql } from 'gatsby';
+import Img from 'gatsby-image';
 import get from 'lodash/get';
 
 import Bio from '../components/Bio';
@@ -163,6 +164,22 @@ class BlogPostTemplate extends React.Component {
                 {formatPostDate(post.frontmatter.date, lang)}
                 {` • ${formatReadingTime(post.timeToRead)}`}
               </p>
+              <figure>
+                <Img
+                  fluid={this.props.data.heroImage.childImageSharp.fluid}
+                  alt={post.frontmatter.heroImageAlt}
+                />
+                <figcaption
+                  style={{
+                    ...scale(-1 / 5),
+                    display: 'block',
+                    marginBottom: rhythm(1),
+                    marginTop: rhythm(-4 / 5),
+                  }}
+                >
+                  {post.frontmatter.heroImageCaption}
+                </figcaption>
+              </figure>
               {translations.length > 0 && (
                 <Translations
                   translations={translations}
@@ -243,7 +260,7 @@ class BlogPostTemplate extends React.Component {
 export default BlogPostTemplate;
 
 export const pageQuery = graphql`
-  query BlogPostBySlug($slug: String!) {
+  query BlogPostBySlug($slug: String!, $directoryName: String!) {
     site {
       siteMetadata {
         title
@@ -259,10 +276,22 @@ export const pageQuery = graphql`
         date(formatString: "MMMM DD, YYYY")
         spoiler
         cta
+        heroImageAlt
+        heroImageCaption
       }
       fields {
         slug
         langKey
+      }
+    }
+    heroImage: file(
+      relativeDirectory: { eq: $directoryName }
+      name: { eq: "hero-image" }
+    ) {
+      childImageSharp {
+        fluid(maxWidth: 630, quality: 100) {
+          ...GatsbyImageSharpFluid
+        }
       }
     }
   }

@@ -1,13 +1,14 @@
 import { Link, graphql } from 'gatsby';
-import { formatPostDate, formatReadingTime } from '../utils/helpers';
+import Img from 'gatsby-image';
+import get from 'lodash/get';
+import React from 'react';
 
+import { formatPostDate, formatReadingTime } from '../utils/helpers';
 import Bio from '../components/Bio';
 import Footer from '../components/Footer';
 import Layout from '../components/Layout';
 import Panel from '../components/Panel';
-import React from 'react';
 import SEO from '../components/SEO';
-import get from 'lodash/get';
 import { rhythm } from '../utils/typography';
 
 class BlogIndexTemplate extends React.Component {
@@ -16,6 +17,7 @@ class BlogIndexTemplate extends React.Component {
     const langKey = this.props.pageContext.langKey;
 
     const posts = get(this, 'props.data.allMarkdownRemark.edges');
+    const previewHeroImages = get(this, 'props.data.heroImages.edges');
 
     return (
       <Layout location={this.props.location} title={siteTitle}>
@@ -26,12 +28,26 @@ class BlogIndexTemplate extends React.Component {
         <main>
           {posts.map(({ node }) => {
             const title = get(node, 'frontmatter.title') || node.fields.slug;
+            const directoryName = get(node, 'fields.directoryName');
+            const previewImageFluid = previewHeroImages
+              .map(edge => edge.node)
+              .filter(image => image.relativeDirectory === directoryName)
+              .map(image => image.childImageSharp.fluid);
             return (
               <article key={node.fields.slug}>
+                <Img
+                  fluid={previewImageFluid}
+                  style={{
+                    float: 'left',
+                    width: '39%',
+                    height: '100%',
+                    marginRight: '0.875rem',
+                  }}
+                />
                 <header>
                   <h3
                     style={{
-                      fontSize: rhythm(1),
+                      // fontSize: rhythm(1),
                       marginBottom: rhythm(1 / 4),
                     }}
                   >
@@ -78,6 +94,7 @@ export const pageQuery = graphql`
       edges {
         node {
           fields {
+            directoryName
             slug
             langKey
           }
@@ -86,6 +103,18 @@ export const pageQuery = graphql`
             date(formatString: "MMMM DD, YYYY")
             title
             spoiler
+          }
+        }
+      }
+    }
+    heroImages: allFile(filter: { name: { eq: "hero-image" } }) {
+      edges {
+        node {
+          relativeDirectory
+          childImageSharp {
+            fluid(maxWidth: 210, quality: 100) {
+              ...GatsbyImageSharpFluid
+            }
           }
         }
       }

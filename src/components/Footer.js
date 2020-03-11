@@ -12,6 +12,7 @@ class Footer extends React.Component {
         }}
       >
         <div style={{ float: 'right' }}>
+          <a href="/legal-notice">legal notice</a> &bull;{' '}
           <a href="/rss.xml" target="_blank" rel="noopener noreferrer">
             rss
           </a>
