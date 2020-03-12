@@ -44,9 +44,9 @@ Note that the component itself does not do any data fetching. No lifecycle metho
 
 ### Inputs and Outputs
 
-The hook parameters are whatever it needs to identify the resource it should fetch. In our case, that's a tweet ID.
+The hook takes as parameters whatever it needs to fetch the resource. In our case, that's a tweet ID.
 
-It outputs three possible results:
+It outputs one of three possible results:
 - We are waiting for data to arrive. `tweet` is `null`.
 - We received data. `tweet` contains the resource.
 - Something went wrong. An `Error` will be _thrown_. We can catch it with an [error boundary](https://reactjs.org/docs/error-boundaries.html) anywhere up the component tree.
@@ -88,7 +88,7 @@ Inside the effect, we use a `fetchTweet` function which does the actual data fet
 
 If we catch an error, we send it into the component tree with the help of a `useErrorRedirect` hook:
 
-```jsx{5,6}
+```jsx{5-7}
 function useErrorRedirect() {
   const [_, dummySetState] = useState();
 
@@ -103,9 +103,7 @@ function useErrorRedirect() {
 ```
 I stole this trick from [Dan Abramov](https://github.com/facebook/react/issues/14981#issuecomment-468460187). The error will bubble upwards through the component tree just like it would for rendering errors. This allows us to catch the error anywhere upwards without a lot of plumbing.
 
-Most importantly though, it is compatible with the upcoming [Suspense API for data fetching](https://reactjs.org/docs/concurrent-mode-suspense.html#handling-errors).
-
-For a detailed explanation, please check [David Barral's excellent blog post on the topic](https://medium.com/trabe/catching-asynchronous-errors-in-react-using-error-boundaries-5e8a5fd7b971).
+Most importantly though, it is compatible with the upcoming [Suspense API for data fetching](https://reactjs.org/docs/concurrent-mode-suspense.html#handling-errors). For a detailed explanation, please check [David Barral's excellent blog post on the topic](https://medium.com/trabe/catching-asynchronous-errors-in-react-using-error-boundaries-5e8a5fd7b971).
 
 #### Fixing Race Conditions
 
@@ -122,8 +120,7 @@ Fetch-on-render only gets you so far when building interactive applications. To 
 
 To like a tweet, we need to make another HTTP request. Only this time, it’s the consequence of a button click and not a side effect of rendering.
 
-The extended tweet component could look like this:
-```jsx{2,19,21}
+```jsx{2,10}
 function TweetDetails({ tweetId }) {
   const { tweet, setTweetIsFavorited } = useTweet(tweetId);
 
@@ -152,6 +149,7 @@ function TweetDetails({ tweetId }) {
   );
 }
 ```
+
 We added a new function to the object returned by `useTweet`. This is not a static function that we import from an API utility wrapper. We return it from the hook! We will see in a minute why this is important.
 
 We call this updater function when the user clicks the like button below the tweet. We assume again that it returns a Promise, and we await its result. If something goes wrong, we tell the user about it.
@@ -161,7 +159,7 @@ Note that we do not send the error up the component tree this time. I prefer to 
 ### Updater Functions
 
 The implementation of the updater could look as follows:
-```jsx{9,10,11,17}
+```jsx{9,11,17}
 function useTweet(tweetId) {
   const [tweet, setTweet] = useState(null);
   const latestTweetId = useRef(null);
@@ -280,16 +278,10 @@ There are applications in which you _absolutely_ need to avoid unnecessary reren
 
 ## The Bottom Line
 
-With this refactoring, the most important advantage behind resource hooks became visible. We moved all our resources into a central cache _without changing a single component_. If we ever want to introduce an external state container, we can do so in the same way. But we don't _have to_ do it, especially not right from the start.
+With this refactoring, the most important advantage behind resource hooks became visible. We moved all our resources into a central cache _without changing a single component_.
 
-When adding the liking feature, we also only touched components for changes in the rendered UI.
+If we ever want to introduce an external state container, we can do so in the same way. But we don't _have to_ do it, especially not right from the start.
 
-All this only works because the resource hook - and not a component - decides
-- when to fetch the resource
-- where to store it
-- when to update it
-- if and how to share it
-
-It allows us to gradually expand the logic inside our hook as our requirements grow. 
+Since we tailored the interface to be compatible with Suspense for data fetching, we will even be able to change the entire fetching strategy to [render-as-you-fetch](https://reactjs.org/docs/concurrent-mode-suspense.html#approach-3-render-as-you-fetch-using-suspense) (as soon as it's released) just as seamlessly.
 
 I’ve been using this pattern on my current project for the past year and I’ve been really happy with it. Give it shot, and let me know how it goes! Or if you rather wouldn’t, let me know why!
