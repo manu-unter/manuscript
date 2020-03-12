@@ -1,7 +1,9 @@
 {
   "name": "manuscript",
   "private": true,
-  "engines": {"node": "12.x"},
+  "engines": {
+    "node": "12.x"
+  },
   "description": "My personal blog",
   "version": "1.0.0",
   "author": "Manuel Hornung <manuel@hornung.in>",
@@ -10,10 +12,10 @@
   },
   "dependencies": {
     "gatsby": "^2.0.76",
+    "gatsby-image": "^2.2.43",
     "gatsby-plugin-catch-links": "^2.0.9",
     "gatsby-plugin-ebook": "^1.0.2",
     "gatsby-plugin-feed": "^2.0.8",
-    "gatsby-plugin-google-analytics": "^2.0.5",
     "gatsby-plugin-i18n": "^0.4.2",
     "gatsby-plugin-manifest": "^2.0.5",
     "gatsby-plugin-offline": "^2.0.5",

@@ -5,7 +5,7 @@ module.exports = {
     description: 'Personal blog by Manuel Hornung',
     siteUrl: 'https://manuscript.now.sh/',
     social: {
-      twitter: '@dan_abramov',
+      twitter: '@manuhornung',
     },
   },
   pathPrefix: '/',
@@ -53,12 +53,12 @@ module.exports = {
     },
     `gatsby-transformer-sharp`,
     `gatsby-plugin-sharp`,
-    {
-      resolve: `gatsby-plugin-google-analytics`,
-      options: {
-        trackingId: `UA-130227707-1`,
-      },
-    },
+    // {
+    //   resolve: `gatsby-plugin-google-analytics`,
+    //   options: {
+    //     trackingId: `UA-130227707-1`,
+    //   },
+    // },
     {
       resolve: `gatsby-plugin-feed`,
       options: {
