@@ -98,6 +98,7 @@ exports.createPages = ({ graphql, actions }) => {
             component: blogPost,
             context: {
               slug: post.node.fields.slug,
+              directoryName: post.node.fields.directoryName,
               previous,
               next,
               translations,
@@ -141,6 +142,7 @@ exports.createPages = ({ graphql, actions }) => {
               component: blogPost,
               context: {
                 slug: post.node.fields.slug,
+                directoryName: post.node.fields.directoryName,
                 translations,
                 translatedLinks,
               },

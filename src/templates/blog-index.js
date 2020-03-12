@@ -39,7 +39,7 @@ class BlogIndexTemplate extends React.Component {
                   fluid={previewImageFluid}
                   style={{
                     float: 'left',
-                    width: '39%',
+                    width: '246px',
                     height: '100%',
                     marginRight: '0.875rem',
                   }}
@@ -112,7 +112,7 @@ export const pageQuery = graphql`
         node {
           relativeDirectory
           childImageSharp {
-            fluid(maxWidth: 210, quality: 100) {
+            fluid(maxWidth: 246, quality: 100) {
               ...GatsbyImageSharpFluid
             }
           }
