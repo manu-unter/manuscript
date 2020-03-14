@@ -34,20 +34,28 @@ class BlogIndexTemplate extends React.Component {
               .filter(image => image.relativeDirectory === directoryName)
               .map(image => image.childImageSharp.fluid);
             return (
-              <article key={node.fields.slug}>
+              <article
+                key={node.fields.slug}
+                style={{
+                  display: 'flex',
+                }}
+              >
                 <Img
                   fluid={previewImageFluid}
                   style={{
-                    float: 'left',
-                    width: '246px',
-                    height: '100%',
+                    flexBasis: '10%',
                     marginRight: '0.875rem',
+                    minWidth: '3.5rem',
                   }}
                 />
-                <header>
+                <header
+                  style={{
+                    flexGrow: 1,
+                  }}
+                >
                   <h3
                     style={{
-                      // fontSize: rhythm(1),
+                      marginTop: 0,
                       marginBottom: rhythm(1 / 4),
                     }}
                   >
@@ -63,10 +71,12 @@ class BlogIndexTemplate extends React.Component {
                     {formatPostDate(node.frontmatter.date, langKey)}
                     {` • ${formatReadingTime(node.timeToRead)}`}
                   </small>
+                  <p
+                    dangerouslySetInnerHTML={{
+                      __html: node.frontmatter.spoiler,
+                    }}
+                  />{' '}
                 </header>
-                <p
-                  dangerouslySetInnerHTML={{ __html: node.frontmatter.spoiler }}
-                />
               </article>
             );
           })}

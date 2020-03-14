@@ -3,7 +3,7 @@ title: Future-Proof Data Fetching with Resource Hooks
 date: '2020-02-23'
 spoiler: 'Starting small but staying extensible. Only using the built-in reactivity and primitives in React - no additional library required'
 cta: 'react'
-heroImageCaption: 'Encapsulation of data fetching is healthy for your application'
+heroImageCaption: "Encapsulate your data fetching! It's healthy for your application"
 heroImageAlt: 'Several medical capsules'
 ---
 
@@ -282,6 +282,6 @@ With this refactoring, the most important advantage behind resource hooks became
 
 If we ever want to introduce an external state container, we can do so in the same way. But we don't _have to_ do it, especially not right from the start.
 
-Since we tailored the interface to be compatible with Suspense for data fetching, we will even be able to change the entire fetching strategy to [render-as-you-fetch](https://reactjs.org/docs/concurrent-mode-suspense.html#approach-3-render-as-you-fetch-using-suspense) (as soon as it's released) just as seamlessly.
+With Suspense-compatible error handling, we will even be able to change the entire fetching strategy to [render-as-you-fetch](https://reactjs.org/docs/concurrent-mode-suspense.html#approach-3-render-as-you-fetch-using-suspense) just as seamlessly - as soon as it's released.
 
 I’ve been using this pattern on my current project for the past year and I’ve been really happy with it. Give it shot, and let me know how it goes! Or if you rather wouldn’t, let me know why!
