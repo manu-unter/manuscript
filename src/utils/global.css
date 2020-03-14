@@ -106,8 +106,6 @@ code[class*='language-'],
 pre[class*='language-'] {
   color: var(--textNormal);
   background: none;
-  font-family: Roboto Mono, Consolas, Menlo, Monaco, source-code-pro,
-    Courier New, monospace;
   font-feature-settings: normal;
   text-align: left;
   white-space: pre;
