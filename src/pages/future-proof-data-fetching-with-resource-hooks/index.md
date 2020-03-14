@@ -7,7 +7,7 @@ heroImageCaption: "Encapsulate your data fetching! It's healthy for your applica
 heroImageAlt: 'Several medical capsules'
 ---
 
-I have been using very complex patterns for data fetching in React for a long time. Even for simple one-off fetching, I would bring in Redux- and Redux-Thunk. I wanted to avoid "refactoring everything" if our requirements became more sophisticated.
+I have been using very complex patterns for data fetching in React for a long time. Even for simple one-off fetching, I would bring in Redux and Redux-Thunk. I wanted to avoid "refactoring everything" if our requirements became more sophisticated.
 
 I didn't manage to avoid refactoring, though. Even worse, my abstractions introduced more refactorings rather than less. I had connected the external state container directly to each component and its lifecycle. To introduce independent loading states, for example, I had to change every single `mapStateToProps` function.
 
