@@ -60,7 +60,7 @@ It outputs one of three possible results:
 
 Let’s have a look at how we could implement the hook.
 
-```jsx{11,15,17}
+```jsx{12,16,20}
 function useTweet(tweetId) {
   const [tweet, setTweet] = useState(null);
   const latestTweetId = useRef(null);
@@ -255,20 +255,15 @@ It's important that we rely on the [functional form of `useState`](https://react
 
 With a `<TweetCacheProvider>` at a common point above our components, we can adapt the hook:
 
-```jsx{2,12,22,27}
+```jsx{2,8,16,20}
 function useTweet(tweetId) {
   const { getCachedTweet, cacheTweet } = useContext(tweetCacheContext);
-  const latestTweetId = useRef(null);
   const sendErrorIntoComponentTree = useErrorRedirect();
 
   useEffect(async () => {
     try {
-      latestTweetId.current = tweetId;
       const fetchedTweet = await fetchTweet(tweetId);
-
-      if (latestTweetId.current === fetchedTweet.id) {
-        cacheTweet(fetchedTweet);
-      }
+      cacheTweet(fetchedTweet);
     } catch (fetchingError) {
       sendErrorIntoComponentTree(fetchingError);
     }
@@ -276,9 +271,7 @@ function useTweet(tweetId) {
 
   async function stateBoundSetTweetIsFavorited(shouldBeFavorited) {
     const updatedTweet = await setTweetIsFavorited(tweetId, shouldBeFavorited);
-    if (latestTweetId.current === updatedTweet.id) {
-      cacheTweet(updatedTweet);
-    }
+    cacheTweet(updatedTweet);
   }
 
   return {
