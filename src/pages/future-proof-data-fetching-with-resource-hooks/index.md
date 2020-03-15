@@ -17,11 +17,14 @@ With what I've come to call resource hooks, you can encapsulate all data fetchin
 
 Let’s dive into it: Starting small.
 
+<small>(For the impatient ones: Yes, there's a codesandbox [at the end of the article.](#demo-codesandbox))</small>
+
 ## The Initial Fetch
 
 This is probably the most common use-case and often where applications start off. We want to show some information in our UI, and we need to fetch it from a server. We will do this with a very common strategy called [“fetch-on-render”](https://reactjs.org/docs/concurrent-mode-suspense.html#approach-1-fetch-on-render-not-using-suspense).
 
 Let’s take a look at this bare-bones twitter post component:
+
 ```jsx{2}
 function TweetDetails({ tweetId }) {
   const { tweet } = useTweet(tweetId);
@@ -32,12 +35,14 @@ function TweetDetails({ tweetId }) {
 
   return (
     <>
+      <p>@{tweet.user.screen_name}</p>
       <p>{tweet.text}</p>
-      <p>{tweet.favorite_count} 🤍</p>
+      <p>{tweet.favorite_count} Likes</p>
     </>
   );
 }
 ```
+
 Note that the component itself does not do any data fetching. No lifecycle methods, effects, or even state have been set up here. It only consumes a useTweet hook and maps the possible return values to a UI representation.
 
 `useTweet` is a resource hook. It provides a clear abstraction over the fetching of a tweet resource.
@@ -61,18 +66,21 @@ function useTweet(tweetId) {
   const latestTweetId = useRef(null);
   const sendErrorIntoComponentTree = useErrorRedirect();
 
-  useEffect(async () => {
-    try {
-      latestTweetId.current = tweetId;
-      const fetchedTweet = await fetchTweet(tweetId);
+  useEffect(() => {
+    async function initiateFetching() {
+      try {
+        latestTweetId.current = tweetId;
+        const fetchedTweet = await fetchTweet(tweetId);
 
-      if (latestTweetId.current === fetchedTweet.id) {
-        setTweet(fetchedTweet);
+        if (latestTweetId.current === fetchedTweet.id) {
+          setTweet(fetchedTweet);
+        }
+      } catch (fetchingError) {
+        sendErrorIntoComponentTree(fetchingError);
       }
-    } catch (fetchingError) {
-      sendErrorIntoComponentTree(fetchingError);
     }
-  }, [tweetId, fetchTweet]);
+    initiateFetching();
+  }, [tweetId, fetchTweet, sendErrorIntoComponentTree]);
 
   return { tweet };
 }
@@ -101,6 +109,7 @@ function useErrorRedirect() {
   return sendErrorIntoComponentTree;
 }
 ```
+
 I stole this trick from [Dan Abramov](https://github.com/facebook/react/issues/14981#issuecomment-468460187). The error will bubble upwards through the component tree just like it would for rendering errors. This allows us to catch the error anywhere upwards without a lot of plumbing.
 
 Most importantly though, it is compatible with the upcoming [Suspense API for data fetching](https://reactjs.org/docs/concurrent-mode-suspense.html#handling-errors). For a detailed explanation, please check [David Barral's excellent blog post on the topic](https://medium.com/trabe/catching-asynchronous-errors-in-react-using-error-boundaries-5e8a5fd7b971).
@@ -138,11 +147,12 @@ function TweetDetails({ tweetId }) {
 
   return (
     <>
+      <p>@{tweet.user.screen_name}</p>
       <p>{tweet.text}</p>
       <p>
         {tweet.favorite_count}
         <button type="button" onClick={toggleLike}>
-          {tweet.favorited ? Like : Unlike }
+          {tweet.favorited ? 'Unlike' : 'Like' }
         </button>
       </p>
     </>
@@ -159,6 +169,7 @@ Note that we do not send the error up the component tree this time. I prefer to 
 ### Updater Functions
 
 The implementation of the updater could look as follows:
+
 ```jsx{9,11,17}
 function useTweet(tweetId) {
   const [tweet, setTweet] = useState(null);
@@ -180,6 +191,7 @@ function useTweet(tweetId) {
   };
 }
 ```
+
 Inside `stateBoundSetTweetIsFavorited`, we use a Promise-based `setTweetIsFavorited` function. It marks the tweet as liked or not on the server and resolves with the complete updated resource from the back end. This is possible because the Twitter API responds with the updated tweet when we send a [like](https://developer.twitter.com/en/docs/tweets/post-and-engage/api-reference/post-favorites-create) or [unlike](https://developer.twitter.com/en/docs/tweets/post-and-engage/api-reference/post-favorites-destroy) request. Many REST APIs follow this pattern to avoid extra round trips.
 
 I want to highlight three things about the updater function.
@@ -214,17 +226,22 @@ const tweetCacheContext = createContext({});
 function TweetCacheProvider({ children }) {
   const [tweetCache, setTweetCache] = useState({});
 
-  function getCachedTweet(tweetId) {
-    return tweetCache[tweetId];
-  }
+  const getCachedTweet = useCallback(
+    tweetId => {
+      return tweetCache[tweetId];
+    },
+    [tweetCache]
+  );
 
-  function cacheTweet(tweet) {
-    const updatedTweetCache = {
-      ...tweetCache,
-      [tweet.id]: tweet,
-    };
-    setTweetCache(updatedTweetCache);
-  }
+  const cacheTweet = useCallback(
+    tweet => {
+      setTweetCache(previousTweetCache => ({
+        ...previousTweetCache,
+        [tweet.id]: tweet
+      }));
+    },
+    [setTweetCache]
+  );
 
   return (
     <tweetCacheContext.Provider value={{ getCachedTweet, cacheTweet }}>
@@ -233,7 +250,11 @@ function TweetCacheProvider({ children }) {
   );
 }
 ```
+
+It's important that we rely on the [functional form of `useState`](https://reactjs.org/docs/hooks-reference.html#functional-updates) here. Calculating the new state directly would create an endless fetching loop because it would make `tweetCache` a dependency of `cacheTweet`.
+
 With a `<TweetCacheProvider>` at a common point above our components, we can adapt the hook:
+
 ```jsx{2,12,22,27}
 function useTweet(tweetId) {
   const { getCachedTweet, cacheTweet } = useContext(tweetCacheContext);
@@ -266,6 +287,7 @@ function useTweet(tweetId) {
   };
 }
 ```
+
 Instead of local state directly in a `useState` hook, the single source of truth now lies in the tweet cache in the context provider. This means there is always only one version of a tweet - the one from the latest fetch or update, no matter which component it came from.
 
 Apart from making our UI consistent, the cache brought some other important changes. With a populated cache, our application will behave differently in certain scenarios.
@@ -284,4 +306,13 @@ If we ever want to introduce an external state container, we can do so in the sa
 
 With Suspense-compatible error handling, we will even be able to change the entire fetching strategy to [render-as-you-fetch](https://reactjs.org/docs/concurrent-mode-suspense.html#approach-3-render-as-you-fetch-using-suspense) just as seamlessly - as soon as it's released.
 
-I’ve been using this pattern on my current project for the past year and I’ve been really happy with it. Give it shot, and let me know how it goes! Or if you rather wouldn’t, let me know why!
+I’ve been using this pattern on my current project for the past year and I’ve been really happy with it. You can check out the following CodeSandbox to see everything in practice. Give it shot, and let me know how it goes! Or if you rather wouldn’t, let me know why!
+
+## Demo Codesandbox
+<iframe
+  src="https://codesandbox.io/embed/react-resource-hooks-demo-hc3tf?fontsize=14&hidenavigation=1&theme=dark"
+  style="width:100%; height:340px; border:0; border-radius: 4px; overflow:hidden;"
+  title="react-resource-hooks-demo"
+  allow="geolocation; microphone; camera; midi; vr; accelerometer; gyroscope; payment; ambient-light-sensor; encrypted-media; usb"
+  sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"
+></iframe>

@@ -1,6 +1,7 @@
 import React from 'react';
 import Layout from '../components/Layout';
 import get from 'lodash/get';
+import { graphql } from 'gatsby';
 
 export default function LegalNotice({ location, data }) {
   const siteTitle = get(data, 'site.siteMetadata.title');
