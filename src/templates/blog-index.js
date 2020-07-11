@@ -40,14 +40,6 @@ class BlogIndexTemplate extends React.Component {
                   display: 'flex',
                 }}
               >
-                <Img
-                  fluid={previewImageFluid}
-                  style={{
-                    flexBasis: '10%',
-                    marginRight: '0.875rem',
-                    minWidth: '3.5rem',
-                  }}
-                />
                 <header
                   style={{
                     flexGrow: 1,
@@ -77,6 +69,14 @@ class BlogIndexTemplate extends React.Component {
                     }}
                   />{' '}
                 </header>
+                <Img
+                  fluid={previewImageFluid}
+                  style={{
+                    flexBasis: '10%',
+                    marginLeft: '0.875rem',
+                    minWidth: '3.5rem',
+                  }}
+                />
               </article>
             );
           })}
