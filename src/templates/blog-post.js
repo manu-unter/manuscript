@@ -207,7 +207,7 @@ class BlogPostTemplate extends React.Component {
         <aside>
           <h3
             style={{
-              fontFamily: 'Coming Soon, sans-serif',
+              fontFamily: 'Kalam, sans-serif',
               marginTop: rhythm(0.25),
             }}
           >
