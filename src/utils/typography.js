@@ -6,7 +6,7 @@ import Wordpress2016 from 'typography-theme-wordpress-2016';
 Wordpress2016.overrideThemeStyles = () => ({
   'h1, h2, h3, h4, h5, h6': {
     fontFamily: 'Kalam, Georgia, serif',
-    fontWeight: 'medium',
+    fontWeight: 'normal',
   },
   a: {
     color: 'var(--textLink)',
