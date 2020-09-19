@@ -1,11 +1,11 @@
 module.exports = {
   siteMetadata: {
     title: 'manuscript',
-    author: 'Manuel Hornung',
-    description: 'Personal blog by Manuel Hornung',
+    author: 'Manuel Unterhofer',
+    description: 'Personal blog by Manuel Unterhofer',
     siteUrl: 'https://manuscript.now.sh/',
     social: {
-      twitter: '@manuhornung',
+      twitter: '@manu_unter',
     },
   },
   pathPrefix: '/',

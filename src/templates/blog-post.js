@@ -17,7 +17,7 @@ import {
   replaceAnchorLinksByLanguage,
 } from '../utils/i18n';
 
-const GITHUB_USERNAME = 'manuhornung';
+const GITHUB_USERNAME = 'manu-unter';
 const GITHUB_REPO_NAME = 'manuscript';
 const systemFont = `system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
     "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans",

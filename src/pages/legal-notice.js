@@ -10,13 +10,13 @@ export default function LegalNotice({ location, data }) {
       <main>
         <h1>Legal Notice</h1>
         <p>
-          Manuel Hornung
+          Manuel Unterhofer
           <br />
           Feldmochinger Str. 21 <br />
           80992 Munich <br />
           Germany <br />
           Tel.: 0049 162 4254113 <br />
-          E-Mail: manuel@hornung.in
+          E-Mail: manuel.unterhofer@hey.com
         </p>
 
         <h2>Privacy Policy</h2>

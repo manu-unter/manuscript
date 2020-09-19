@@ -6,9 +6,9 @@
   },
   "description": "My personal blog",
   "version": "1.0.0",
-  "author": "Manuel Hornung <manuel@hornung.in>",
+  "author": "Manuel Unterhofer <manuel.unterhofer@hey.com>",
   "bugs": {
-    "url": "https://github.com/manuhornung/manuscript/issues"
+    "url": "https://github.com/manu-unter/manuscript/issues"
   },
   "dependencies": {
     "gatsby": "^2.0.76",
