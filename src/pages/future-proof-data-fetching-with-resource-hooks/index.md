@@ -218,7 +218,7 @@ In both cases, the user would need to reload the whole page or reopen all pieces
 
 ### Caching Resource Hooks
 
-We need to make sure that both components use the exact same copy of the resource when rendering. We will achieve that by setting up a common tweet cache on a [context](https://reactjs.org/docs/context.html).
+We need to make sure that both components use the exact same copy of the resource when rendering. We will achieve that by setting up a normalized tweet cache on a [context](https://reactjs.org/docs/context.html).
 
 ```jsx
 const tweetCacheContext = createContext({});

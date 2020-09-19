@@ -147,6 +147,7 @@ class BlogPostTemplate extends React.Component {
           title={post.frontmatter.title}
           description={post.frontmatter.spoiler}
           slug={post.fields.slug}
+          image={this.props.data.heroImage.childImageSharp.fixed.src}
         />
         <main>
           <article>
@@ -295,6 +296,9 @@ export const pageQuery = graphql`
       childImageSharp {
         fluid(maxWidth: 630, quality: 100) {
           ...GatsbyImageSharpFluid
+        }
+        fixed(width: 800) {
+          ...GatsbyImageSharpFixed
         }
       }
     }
