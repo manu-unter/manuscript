@@ -2,7 +2,7 @@
   "name": "manuscript",
   "private": true,
   "engines": {
-    "node": "12.x"
+    "node": "15.x"
   },
   "description": "My personal blog",
   "version": "1.0.0",

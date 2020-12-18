@@ -23,9 +23,9 @@ class Bio extends React.Component {
           }}
         />
         <p>
-          Personal blog by{' '}
-          <a href="https://mobile.twitter.com/manu_unter">Manuel Unterhofer</a>,{' '}
-          trying to improve our web applications
+          Blog by <a href="/about">Manuel Unterhofer</a>, trying to improve the
+          way we build and use technology. To me, the fun starts where the
+          Google results end.
         </p>
       </div>
     );
