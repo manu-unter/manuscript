@@ -1,0 +1,40 @@
+.link {
+  color: var(--textTitle) !important;
+  text-decoration: none;
+}
+
+.link:hover > article {
+  background-color: var(--bg-secondary);
+}
+
+.article {
+  display: flex;
+  margin-bottom: 1rem;
+  margin: -1rem -1rem 1rem -1rem;
+  padding: 1rem;
+  border-radius: 10px;
+}
+
+.articleHeader {
+  flex-grow: 1;
+}
+
+.articlePreviewTitle {
+  border-bottom: 3px solid var(--textTitle);
+  margin-bottom: 0.5rem;
+}
+
+.articlePreviewSpoiler {
+  margin-bottom: 0;
+}
+
+.articlePreviewImage {
+  flex-basis: 10%;
+  margin-left: 0.875rem;
+  min-width: 3.5rem;
+  margin-bottom: 0;
+}
+
+.articlePreviewImage img {
+  margin-bottom: 0;
+}

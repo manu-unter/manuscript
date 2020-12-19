@@ -6,102 +6,47 @@ import Helmet from 'react-helmet';
 import { rhythm, scale } from '../utils/typography';
 import sun from '../assets/sun.png';
 import moon from '../assets/moon.png';
+import './Layout.css';
 
 class Layout extends React.Component {
   state = {
     theme: null,
   };
+
   componentDidMount() {
     this.setState({ theme: window.__theme });
     window.__onThemeChange = () => {
       this.setState({ theme: window.__theme });
     };
   }
+
   renderHeader() {
     const { location, title } = this.props;
     const rootPath = `${__PATH_PREFIX__}/`;
 
-    if (location.pathname === rootPath) {
-      return (
-        <h1
-          style={{
-            ...scale(0.75),
-            marginBottom: 0,
-            marginTop: 0,
-          }}
-        >
-          <Link
-            style={{
-              boxShadow: 'none',
-              textDecoration: 'none',
-              color: 'var(--textTitle)',
-            }}
-            to={'/'}
-          >
-            {title}
-          </Link>
-        </h1>
-      );
-    } else {
-      return (
-        <h3
-          style={{
-            fontFamily: 'Kalam, sans-serif',
-            marginTop: 0,
-            marginBottom: 0,
-            height: 42, // because
-            lineHeight: '2.625rem',
-          }}
-        >
-          <Link
-            style={{
-              boxShadow: 'none',
-              textDecoration: 'none',
-            }}
-            to={'/'}
-          >
-            {title}
-          </Link>
-        </h3>
-      );
-    }
+    const HeadlineComponent = location.pathname === rootPath ? 'h1' : 'h3';
+    return (
+      <HeadlineComponent className="blogTitle">
+        <Link to={'/'}>{title}</Link>
+      </HeadlineComponent>
+    );
   }
+
   render() {
     const { children } = this.props;
 
     return (
-      <div
-        style={{
-          color: 'var(--textNormal)',
-          background: 'var(--bg)',
-          transition: 'color 0.2s ease-out, background 0.2s ease-out',
-          minHeight: '100vh',
-        }}
-      >
+      <div className="layout">
         <Helmet
           meta={[
             {
               name: 'theme-color',
-              content: this.state.theme === 'light' ? '#7fdbca' : '#2aa298',
+              content: this.state.theme === 'light' ? '#e29e1a' : '#e29e1a',
             },
           ]}
         />
-        <div
-          style={{
-            marginLeft: 'auto',
-            marginRight: 'auto',
-            maxWidth: rhythm(24),
-            padding: `2.625rem ${rhythm(3 / 4)}`,
-          }}
-        >
-          <header
-            style={{
-              display: 'flex',
-              justifyContent: 'space-between',
-              alignItems: 'center',
-              marginBottom: '2.625rem',
-            }}
-          >
+        <div className="content">
+          <header className="header">
             {this.renderHeader()}
             {this.state.theme !== null ? (
               <Toggle

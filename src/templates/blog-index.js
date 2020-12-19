@@ -7,9 +7,9 @@ import { formatPostDate, formatReadingTime } from '../utils/helpers';
 import Bio from '../components/Bio';
 import Footer from '../components/Footer';
 import Layout from '../components/Layout';
-import Panel from '../components/Panel';
 import SEO from '../components/SEO';
 import { rhythm } from '../utils/typography';
+import './blog-index.css';
 
 class BlogIndexTemplate extends React.Component {
   render() {
@@ -34,50 +34,32 @@ class BlogIndexTemplate extends React.Component {
               .filter(image => image.relativeDirectory === directoryName)
               .map(image => image.childImageSharp.fluid);
             return (
-              <article
+              <Link
+                className="link"
+                to={node.fields.slug}
                 key={node.fields.slug}
-                style={{
-                  display: 'flex',
-                }}
+                rel="bookmark"
               >
-                <header
-                  style={{
-                    flexGrow: 1,
-                  }}
-                >
-                  <h2
-                    style={{
-                      marginTop: 0,
-                      marginBottom: rhythm(1 / 4),
-                    }}
-                  >
-                    <Link
-                      style={{ boxShadow: 'none', textDecoration: 'none' }}
-                      to={node.fields.slug}
-                      rel="bookmark"
-                    >
-                      {title}
-                    </Link>
-                  </h2>
-                  <small>
-                    {formatPostDate(node.frontmatter.date, langKey)}
-                    {` • ${formatReadingTime(node.timeToRead)}`}
-                  </small>
-                  <p
-                    dangerouslySetInnerHTML={{
-                      __html: node.frontmatter.spoiler,
-                    }}
-                  />{' '}
-                </header>
-                <Img
-                  fluid={previewImageFluid}
-                  style={{
-                    flexBasis: '10%',
-                    marginLeft: '0.875rem',
-                    minWidth: '3.5rem',
-                  }}
-                />
-              </article>
+                <article className="article">
+                  <header className="articleHeader">
+                    <h2 className="articlePreviewTitle">{title}</h2>
+                    <small>
+                      {formatPostDate(node.frontmatter.date, langKey)}
+                      {` • ${formatReadingTime(node.timeToRead)}`}
+                    </small>
+                    <p
+                      className="articlePreviewSpoiler"
+                      dangerouslySetInnerHTML={{
+                        __html: node.frontmatter.spoiler,
+                      }}
+                    />{' '}
+                  </header>
+                  <Img
+                    fluid={previewImageFluid}
+                    className="articlePreviewImage"
+                  />
+                </article>
+              </Link>
             );
           })}
         </main>

@@ -170,6 +170,9 @@ class BlogPostTemplate extends React.Component {
                 <Img
                   fluid={this.props.data.heroImage.childImageSharp.fluid}
                   alt={post.frontmatter.heroImageAlt}
+                  style={{
+                    maxHeight: '33vh',
+                  }}
                 />
                 <figcaption
                   style={{
