@@ -74,7 +74,7 @@ I have to create a mental translation layer to be able to make assumptions about
 
 At some point, I might even feel overwhelmed with the complexity.
 I'll need someone to explain the code to me.
-I that's not possible, I'll resort to trial and error to figure out which parts I'll need to change in to reach my goal.
+If that's not possible, I'll resort to trial and error to figure out which parts I'll need to change to reach my goal.
 
 In my newly-added code, I try to use names that roughly match what's already there, as best as I can.
 I'm not sure if I'm using them correctly though.

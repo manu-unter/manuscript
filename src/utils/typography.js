@@ -4,27 +4,6 @@ import Typography from 'typography';
 // import Wordpress2016 from 'typography-theme-wordpress-2016';
 
 // Wordpress2016.overrideThemeStyles = () => ({
-//   'h1, h2, h3, h4, h5, h6': {
-//     fontFamily: 'Lato, Georgia, serif',
-//   },
-//   a: {
-//     color: 'var(--textLink)',
-//     textDecoration: 'underline',
-//     boxShadow: 'none',
-//   },
-//   hr: {
-//     background: 'var(--hr)',
-//   },
-//   'a.gatsby-resp-image-link': {
-//     boxShadow: 'none',
-//   },
-//   // These two are for gatsby-remark-autolink-headers:
-//   'a.anchor': {
-//     boxShadow: 'none',
-//   },
-//   'a.anchor svg[aria-hidden="true"]': {
-//     stroke: 'var(--textLink)',
-//   },
 //   'p code': {
 //     fontSize: '1rem',
 //   },
@@ -34,11 +13,6 @@ import Typography from 'typography';
 //   },
 //   'li code': {
 //     fontSize: '1rem',
-//   },
-//   blockquote: {
-//     color: 'inherit',
-//     borderLeftColor: 'inherit',
-//     opacity: '0.8',
 //   },
 //   'blockquote.translation': {
 //     fontSize: '1em',
@@ -84,9 +58,12 @@ const typographyOptions = {
     'a.anchor svg[aria-hidden="true"]': {
       fill: 'currentColor',
     },
+    hr: {
+      background: 'var(--hr)',
+    },
     blockquote: {
-      margin: '0 -1.3125rem 1.45rem calc(-1.3125rem - 3px)',
-      padding: '0 1.3125rem',
+      margin: '0 -1.3125rem 1.45rem',
+      padding: '0 1.3125rem 0 calc(1.3125rem - 3px)',
       color: 'var(--textNormal)',
       fontStyle: 'italic',
       borderLeft: '3px solid var(--textLink)',
