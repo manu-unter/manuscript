@@ -3,7 +3,6 @@ title: Future-Proof Data Fetching with Resource Hooks
 date: '2020-02-23'
 spoiler: 'Starting small but staying extensible. Only using the built-in reactivity and primitives in React - no additional library required'
 cta: 'react'
-heroImageCaption: "Encapsulate your data fetching! It's healthy for your application"
 heroImageAlt: 'Several medical capsules'
 ---
 

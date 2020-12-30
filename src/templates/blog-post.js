@@ -174,16 +174,6 @@ class BlogPostTemplate extends React.Component {
                     maxHeight: '33vh',
                   }}
                 />
-                <figcaption
-                  style={{
-                    ...scale(-1 / 5),
-                    display: 'block',
-                    marginBottom: rhythm(1),
-                    marginTop: rhythm(-4 / 5),
-                  }}
-                >
-                  {post.frontmatter.heroImageCaption}
-                </figcaption>
               </figure>
               {translations.length > 0 && (
                 <Translations
@@ -212,6 +202,7 @@ class BlogPostTemplate extends React.Component {
           <h3
             style={{
               fontFamily: 'Kalam, sans-serif',
+              fontWeight: 'normal',
               marginTop: rhythm(0.25),
             }}
           >
@@ -285,7 +276,6 @@ export const pageQuery = graphql`
         spoiler
         cta
         heroImageAlt
-        heroImageCaption
       }
       fields {
         slug

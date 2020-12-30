@@ -81,6 +81,19 @@ const typographyOptions = {
     'a:hover': {
       color: 'var(--textLinkHover)',
     },
+    'a.anchor svg[aria-hidden="true"]': {
+      fill: 'currentColor',
+    },
+    blockquote: {
+      margin: '0 -1.3125rem 1.45rem calc(-1.3125rem - 3px)',
+      padding: '0 1.3125rem',
+      color: 'var(--textNormal)',
+      fontStyle: 'italic',
+      borderLeft: '3px solid var(--textLink)',
+    },
+    'blockquote > *': {
+      opacity: 0.8,
+    },
   }),
 };
 
