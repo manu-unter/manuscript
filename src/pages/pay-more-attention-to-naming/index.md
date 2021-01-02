@@ -133,5 +133,5 @@ That's why our naming skills need to grow with every new topic and project.
 I'm also constantly trying to improve at it, and I will continue until I stop writing code.
 
 All the more reason to practice!
-If you're now thinking: "OK, but where do I start?": I'm already working on a more practical, hands-on naming guide as a follow-up article.
-Coming soon!
+
+If you're now thinking: "OK, but where do I start?": Go ahead and read [my follow-up article](/giving-names-meaning) with four concrete guidelines that help you find good names for things, including examples for each one.
