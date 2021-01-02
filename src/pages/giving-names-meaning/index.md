@@ -6,8 +6,6 @@ cta: 'react'
 heroImageAlt: 'A stack of name tags with pens besides them'
 ---
 
-# Giving Names Meaning
-
 This article is the second of a series about naming.
 In [the first one](/pay-more-attention-to-naming), I highlighted why naming is important and why we need to pay more attention to it.
 
