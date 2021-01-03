@@ -134,4 +134,4 @@ I'm also constantly trying to improve at it, and I will continue until I stop wr
 
 All the more reason to practice!
 
-If you're now thinking: "OK, but where do I start?": Go ahead and read [my follow-up article](/giving-names-meaning) with four concrete guidelines that help you find good names for things, including examples for each one.
+If you're now thinking: "OK, but where do I start?": Go ahead and read [my follow-up article](/how-to-give-meaningful-names) with four concrete guidelines that help you find good names for things, including examples for each one.

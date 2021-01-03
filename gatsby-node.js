@@ -7,6 +7,19 @@ const { supportedLanguages } = require('./i18n');
 exports.createPages = ({ graphql, actions }) => {
   const { createPage, createRedirect } = actions;
 
+  createRedirect({
+    fromPath: '/future-proof-data-fetching-with-resource-hooks/',
+    toPath: '/future-proof-data-fetching-with-react/',
+    isPermanent: true,
+    redirectInBrowser: true,
+  });
+  createRedirect({
+    fromPath: '/giving-names-meaning/',
+    toPath: '/how-to-give-meaningful-names/',
+    isPermanent: true,
+    redirectInBrowser: true,
+  });
+
   return new Promise((resolve, reject) => {
     const blogPost = path.resolve('./src/templates/blog-post.js');
 

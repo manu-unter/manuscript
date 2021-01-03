@@ -1,5 +1,5 @@
 ---
-title: Giving Names Meaning
+title: How to Give Meaningful Names 
 date: '2021-01-02'
 spoiler: 'Why it is important that names have a meaning and four guidelines that help you achieve that'
 cta: 'react'
