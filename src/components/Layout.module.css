@@ -28,3 +28,7 @@
 .blogTitle > a {
   text-decoration: none;
 }
+
+.switchIcon {
+  pointer-events: none;
+}

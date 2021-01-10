@@ -2,7 +2,6 @@
 title: Pay More Attention to Naming
 date: '2020-12-30'
 spoiler: 'I''ve seen bad naming cause countless bugs and problems that cost real time and money. Here''s why that happens and how to avoid it.'
-cta: 'react'
 heroImageAlt: 'A bamboo forest with names carved into the canes'
 ---
 

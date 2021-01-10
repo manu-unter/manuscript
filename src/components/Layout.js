@@ -1,91 +1,77 @@
-import React from 'react';
-import { Link } from 'gatsby';
+import Head from 'next/head';
+import Link from 'next/link';
+import React, { useLayoutEffect, useState } from 'react';
+import { useRouter } from 'next/router';
 import Toggle from './Toggle';
-import Helmet from 'react-helmet';
 
-import { rhythm, scale } from '../utils/typography';
 import sun from '../assets/sun.png';
 import moon from '../assets/moon.png';
-import './Layout.css';
+import styles from './Layout.module.css';
+import Footer from './Footer';
+import Image from 'next/image';
 
-class Layout extends React.Component {
-  state = {
-    theme: null,
-  };
+export default function Layout({ title, children }) {
+  const [theme, setTheme] = useState(null);
+  const router = useRouter();
 
-  componentDidMount() {
-    this.setState({ theme: window.__theme });
+  useLayoutEffect(() => {
+    setTheme(window.__theme);
     window.__onThemeChange = () => {
-      this.setState({ theme: window.__theme });
+      setTheme(window.__theme);
     };
-  }
+  }, []);
 
-  renderHeader() {
-    const { location, title } = this.props;
-    const rootPath = `${__PATH_PREFIX__}/`;
+  const HeadlineComponent = router.pathname === router.basePath ? 'h1' : 'h3';
 
-    const HeadlineComponent = location.pathname === rootPath ? 'h1' : 'h3';
-    return (
-      <HeadlineComponent className="blogTitle">
-        <Link to={'/'}>{title}</Link>
-      </HeadlineComponent>
-    );
-  }
-
-  render() {
-    const { children } = this.props;
-
-    return (
-      <div className="layout">
-        <Helmet
-          meta={[
-            {
-              name: 'theme-color',
-              content: this.state.theme === 'light' ? '#e29e1a' : '#e29e1a',
-            },
-          ]}
+  return (
+    <div className={styles.layout}>
+      <Head>
+        <meta
+          name="theme-color"
+          content={theme === 'light' ? '#e29e1a' : '#e29e1a'}
         />
-        <div className="content">
-          <header className="header">
-            {this.renderHeader()}
-            {this.state.theme !== null ? (
-              <Toggle
-                icons={{
-                  checked: (
-                    <img
-                      src={moon}
-                      width="16"
-                      height="16"
-                      role="presentation"
-                      style={{ pointerEvents: 'none' }}
-                    />
-                  ),
-                  unchecked: (
-                    <img
-                      src={sun}
-                      width="16"
-                      height="16"
-                      role="presentation"
-                      style={{ pointerEvents: 'none' }}
-                    />
-                  ),
-                }}
-                checked={this.state.theme === 'dark'}
-                onChange={e =>
-                  window.__setPreferredTheme(
-                    e.target.checked ? 'dark' : 'light'
-                  )
-                }
-              />
-            ) : (
-              <div style={{ height: '24px' }} />
-            )}
-          </header>
-          {children}
-        </div>
+      </Head>
+      <div className={styles.content}>
+        <header className={styles.header}>
+          <HeadlineComponent className={styles.blogTitle}>
+            <Link href="/">
+              <a>{title}</a>
+            </Link>
+          </HeadlineComponent>
+          {theme !== null ? (
+            <Toggle
+              icons={{
+                checked: (
+                  <Image
+                    src={moon}
+                    width={16}
+                    height={16}
+                    role="presentation"
+                    layout="fixed"
+                  />
+                ),
+                unchecked: (
+                  <Image
+                    src={sun}
+                    width={16}
+                    height={16}
+                    role="presentation"
+                    layout="fixed"
+                  />
+                ),
+              }}
+              checked={theme === 'dark'}
+              onChange={e =>
+                window.__setPreferredTheme(e.target.checked ? 'dark' : 'light')
+              }
+            />
+          ) : (
+            <div style={{ height: '24px' }} />
+          )}
+        </header>
+        {children}
+        <Footer />
       </div>
-    );
-  }
+    </div>
+  );
 }
-
-export default Layout;

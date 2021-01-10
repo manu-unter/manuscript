@@ -1,0 +1,11 @@
+.bio {
+  display: flex;
+}
+
+.profilePicture {
+  border-radius: 50%;
+}
+
+.text {
+  margin-left: 1rem;
+}

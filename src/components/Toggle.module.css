@@ -3,7 +3,7 @@
  * Forked from https://github.com/aaronshaf/react-toggle/
 **/
 
-.react-toggle {
+.reactToggle {
   touch-action: pan-x;
 
   display: inline-block;
@@ -20,7 +20,7 @@
   -webkit-tap-highlight-color: transparent;
 }
 
-.react-toggle-screenreader-only {
+.reactToggleScreenreaderOnly {
   border: 0;
   clip: rect(0 0 0 0);
   height: 1px;
@@ -31,7 +31,7 @@
   width: 1px;
 }
 
-.react-toggle-track {
+.reactToggleTrack {
   width: 50px;
   height: 24px;
   padding: 0;
@@ -40,7 +40,7 @@
   transition: all 0.2s ease;
 }
 
-.react-toggle-track-check {
+.reactToggleTrackCheck {
   position: absolute;
   width: 17px;
   height: 17px;
@@ -54,12 +54,12 @@
   transition: opacity 0.25s ease;
 }
 
-.react-toggle--checked .react-toggle-track-check {
+.reactToggle--checked .reactToggleTrackCheck {
   opacity: 1;
   transition: opacity 0.25s ease;
 }
 
-.react-toggle-track-x {
+.reactToggleTrackX {
   position: absolute;
   width: 17px;
   height: 17px;
@@ -73,11 +73,11 @@
   transition: opacity 0.25s ease;
 }
 
-.react-toggle--checked .react-toggle-track-x {
+.reactToggle--checked .reactToggleTrackX {
   opacity: 0;
 }
 
-.react-toggle-thumb {
+.reactToggleThumb {
   position: absolute;
   top: 1px;
   left: 1px;
@@ -90,15 +90,15 @@
   transform: translateX(0);
 }
 
-.react-toggle--checked .react-toggle-thumb {
+.reactToggle--checked .reactToggleThumb {
   transform: translateX(26px);
   border-color: #19ab27;
 }
 
-.react-toggle--focus .react-toggle-thumb {
+.reactToggle--focus .reactToggleThumb {
   box-shadow: 0px 0px 2px 3px var(--textLink);
 }
 
-.react-toggle:active .react-toggle-thumb {
+.reactToggle:active .reactToggleThumb {
   box-shadow: 0px 0px 5px 5px var(--textLink);
 }

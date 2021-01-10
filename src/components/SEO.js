@@ -1,112 +1,45 @@
 import React from 'react';
-import Helmet from 'react-helmet';
+import Head from 'next/head';
 import PropTypes from 'prop-types';
-import { StaticQuery, graphql } from 'gatsby';
+import config from '../../config';
 
-const query = graphql`
-  query GetSiteMetadata {
-    site {
-      siteMetadata {
-        title
-        author
-        description
-        siteUrl
-        social {
-          twitter
-        }
-      }
-    }
-  }
-`;
+const {
+  title: siteTitle,
+  description: siteDescription,
+  siteUrl,
+  social,
+} = config;
+function SEO({ image, title, description, slug }) {
+  const metaDescription = description || siteDescription;
+  const metaImage = image ? `${siteUrl}${image}` : null;
+  const url = slug ? `${siteUrl}${slug}` : siteUrl;
 
-function SEO({ meta, image, title, description, slug, lang = 'en' }) {
   return (
-    <StaticQuery
-      query={query}
-      render={data => {
-        const { siteMetadata } = data.site;
-        const metaDescription = description || siteMetadata.description;
-        const metaImage = image ? `${siteMetadata.siteUrl}${image}` : null;
-        const url = `${siteMetadata.siteUrl}${slug}`;
-        return (
-          <Helmet
-            htmlAttributes={{ lang }}
-            {...(title
-              ? {
-                  titleTemplate: `%s — ${siteMetadata.title}`,
-                  title,
-                }
-              : {
-                  title: `${siteMetadata.title} — A blog by Manuel Unterhofer`,
-                })}
-            meta={[
-              {
-                name: 'description',
-                content: metaDescription,
-              },
-              {
-                property: 'og:url',
-                content: url,
-              },
-              {
-                property: 'og:title',
-                content: title || siteMetadata.title,
-              },
-              {
-                property: 'og:description',
-                content: metaDescription,
-              },
-              {
-                name: 'twitter:card',
-                content: 'summary',
-              },
-              {
-                name: 'twitter:creator',
-                content: siteMetadata.social.twitter,
-              },
-              {
-                name: 'twitter:title',
-                content: title || siteMetadata.title,
-              },
-              {
-                name: 'twitter:description',
-                content: metaDescription,
-              },
-            ]
-              .concat(
-                metaImage
-                  ? [
-                      {
-                        property: 'og:image',
-                        content: metaImage,
-                      },
-                      {
-                        name: 'twitter:image',
-                        content: metaImage,
-                      },
-                    ]
-                  : []
-              )
-              .concat(meta)}
-          />
-        );
-      }}
-    />
+    <Head>
+      <title>
+        {title
+          ? `${title} — {siteTitle}`
+          : `${siteTitle} — A blog by Manuel Unterhofer`}
+      </title>
+      <meta name="description" content={metaDescription} />
+      <meta property="og:url" content={url} />
+      <meta property="og:title" content={title || siteTitle} />
+      <meta property="og:description" content={metaDescription} />
+      <meta name="twitter:card" content="summary" />
+      <meta name="twitter:creator" content="@manu_unter" />,
+      <meta name="twitter:title" content={title || siteTitle} />
+      <meta name="twitter:description" content={metaDescription} />
+      {metaImage && <meta property="og:image" content={metaImage} />}
+      {metaImage && <meta name="twitter:image" content={metaImage} />}
+    </Head>
   );
 }
-
-SEO.defaultProps = {
-  meta: [],
-  title: '',
-  slug: '',
-};
 
 SEO.propTypes = {
   description: PropTypes.string,
   image: PropTypes.string,
-  meta: PropTypes.array,
   slug: PropTypes.string,
-  title: PropTypes.string.isRequired,
+  title: PropTypes.string,
 };
 
 export default SEO;

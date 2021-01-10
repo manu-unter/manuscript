@@ -10,12 +10,6 @@ import Panel from '../components/Panel';
 import Footer from '../components/Footer';
 import { formatPostDate, formatReadingTime } from '../utils/helpers';
 import { rhythm, scale } from '../utils/typography';
-import {
-  codeToLanguage,
-  createLanguageLink,
-  loadFontsForCode,
-  replaceAnchorLinksByLanguage,
-} from '../utils/i18n';
 
 const GITHUB_USERNAME = 'manu-unter';
 const GITHUB_REPO_NAME = 'manuscript';

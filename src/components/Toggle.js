@@ -4,7 +4,7 @@
  * + applied https://github.com/aaronshaf/react-toggle/pull/90
  **/
 
-import './Toggle.css';
+import styles from './Toggle.module.css';
 
 import React, { PureComponent } from 'react';
 
@@ -155,10 +155,10 @@ export default class Toggle extends PureComponent {
   render() {
     const { className, icons: _icons, ...inputProps } = this.props;
     const classes =
-      'react-toggle' +
-      (this.state.checked ? ' react-toggle--checked' : '') +
-      (this.state.hasFocus ? ' react-toggle--focus' : '') +
-      (this.props.disabled ? ' react-toggle--disabled' : '') +
+      styles.reactToggle +
+      (this.state.checked ? ` ${styles['reactToggle--checked']}` : '') +
+      (this.state.hasFocus ? ` ${styles['reactToggle--focus']}` : '') +
+      (this.props.disabled ? ` ${styles['reactToggle--disabled']}` : '') +
       (className ? ' ' + className : '');
     return (
       <div
@@ -169,15 +169,15 @@ export default class Toggle extends PureComponent {
         onTouchEnd={this.handleTouchEnd}
         onTouchCancel={this.handleTouchCancel}
       >
-        <div className="react-toggle-track">
-          <div className="react-toggle-track-check">
+        <div className={styles.reactToggleTrack}>
+          <div className={styles.reactToggleTrackCheck}>
             {this.getIcon('checked')}
           </div>
-          <div className="react-toggle-track-x">
+          <div className={styles.reactToggleTrackX}>
             {this.getIcon('unchecked')}
           </div>
         </div>
-        <div className="react-toggle-thumb" />
+        <div className={styles.reactToggleThumb} />
 
         <input
           {...inputProps}
@@ -186,7 +186,7 @@ export default class Toggle extends PureComponent {
           }}
           onFocus={this.handleFocus}
           onBlur={this.handleBlur}
-          className="react-toggle-screenreader-only"
+          className={styles.reactToggleScreenreaderOnly}
           type="checkbox"
           aria-label="Switch between Dark and Light mode"
         />
