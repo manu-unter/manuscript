@@ -16,13 +16,14 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 2rem;
+  margin-bottom: 3rem;
 }
 
 .blogTitle {
   font-family: Kalam, sans-serif;
   font-size: 2rem;
   font-weight: normal;
+  margin-bottom: 0;
 }
 
 .blogTitle > a {

@@ -70,3 +70,6 @@ yarn-error.log
 
 # Webstorm
 .idea
+
+# RSS feed build output
+public/rss.xml

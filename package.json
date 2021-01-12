@@ -12,50 +12,34 @@
   },
   "dependencies": {
     "@silvenon/remark-smartypants": "^1.0.0",
-    "gatsby-image": "^2.2.43",
-    "gatsby-plugin-catch-links": "^2.0.9",
-    "gatsby-plugin-ebook": "^1.0.2",
-    "gatsby-plugin-feed": "^2.0.8",
-    "gatsby-plugin-i18n": "^0.4.2",
-    "gatsby-plugin-manifest": "^2.0.5",
-    "gatsby-plugin-offline": "^2.0.5",
-    "gatsby-plugin-react-helmet": "^3.0.0",
-    "gatsby-plugin-sharp": "^2.0.16",
-    "gatsby-plugin-typography": "^2.2.0",
-    "gatsby-remark-autolink-headers": "2.0.12",
-    "gatsby-remark-copy-linked-files": "^2.0.5",
-    "gatsby-remark-external-links": "^0.0.4",
-    "gatsby-remark-images": "^2.0.6",
-    "gatsby-remark-prismjs": "^3.0.0",
-    "gatsby-remark-responsive-iframe": "^2.0.5",
-    "gatsby-remark-smartypants": "^2.0.5",
-    "gatsby-source-filesystem": "^2.0.12",
-    "gatsby-transformer-remark": "^2.1.17",
-    "gatsby-transformer-sharp": "^2.1.9",
-    "husky": "^1.3.1",
-    "lint-staged": "^8.1.0",
-    "lodash": "^4.17.11",
-    "next": "^10.0.4",
+    "gray-matter": "^4.0.2",
+    "lodash": "^4.17.20",
+    "next": "^10.0.5",
     "next-images": "^1.6.2",
-    "prismjs": "^1.15.0",
-    "react": "^16.8.2",
-    "react-dom": "^16.8.2",
-    "react-helmet": "^5.2.0",
+    "prismjs": "^1.23.0",
+    "react": "^17.0.1",
+    "react-dom": "^17.0.1",
     "react-typography": "^0.16.19",
     "remark": "^13.0.0",
     "remark-autolink-headings": "^6.0.1",
+    "remark-external-links": "^8.0.0",
     "remark-html": "^13.0.1",
     "remark-prism": "^1.3.4",
     "remark-slug": "^6.0.0",
+    "rss": "^1.2.2",
     "sanitize-html": "^2.3.0",
-    "typography": "^0.16.17"
+    "typography": "^0.16.19"
   },
   "devDependencies": {
-    "eslint": "^4.19.1",
-    "eslint-plugin-react": "^7.11.1",
-    "gh-pages": "^1.2.0",
-    "glob": "^7.1.3",
-    "prettier": "^1.14.2"
+    "@types/node": "^14.14.20",
+    "@types/react": "^17.0.0",
+    "eslint": "^7.17.0",
+    "eslint-plugin-react": "^7.22.0",
+    "husky": "^4.3.7",
+    "lint-staged": "^10.5.3",
+    "prettier": "^2.2.1",
+    "ts-node": "^9.1.1",
+    "typescript": "^4.1.3"
   },
   "homepage": "https://manuscript.blog/",
   "license": "MIT",
@@ -64,7 +48,7 @@
     "lint": "./node_modules/.bin/eslint --ext .js,.jsx --ignore-pattern public .",
     "format": "prettier --write '{gatsby-*.js,src/**/*.{js,jsx,json,css}}'",
     "start": "next start",
-    "build": "next build"
+    "build": "ts-node ./src/utils/generate-rss-feed.js && next build"
   },
   "husky": {
     "hooks": {
@@ -72,16 +56,9 @@
     }
   },
   "lint-staged": {
-    "{gatsby-*.js,src/**/*.{js,jsx,json,css}}": [
+    "{src/**/*.{js,jsx,json,css}}": [
       "yarn format",
       "git add"
-    ],
-    "src/pages/**/*.md": [
-      "yarn run js-to-jsx",
-      "git add"
     ]
-  },
-  "resolutions": {
-    "**/sharp": "^0.23"
   }
 }

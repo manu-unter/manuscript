@@ -1,13 +1,14 @@
+import remarkSmartypants from '@silvenon/remark-smartypants';
 import { readdirSync, readFileSync } from 'fs';
 import parseFileWithFrontMatter from 'gray-matter';
 import _ from 'lodash';
 import { join } from 'path';
 import remark from 'remark';
 import remarkAutolinkHeadings from 'remark-autolink-headings';
+import remarkExternalLinks from 'remark-external-links';
 import remarkHtml from 'remark-html';
 import remarkPrism from 'remark-prism';
 import remarkSlug from 'remark-slug';
-import remarkSmartypants from '@silvenon/remark-smartypants';
 import sanitizeHtml from 'sanitize-html';
 import { homepage as baseUrl } from '../../package.json';
 
@@ -34,6 +35,7 @@ async function transformMarkdownIntoHtml(markdown) {
   const file = await remark()
     .use(remarkSmartypants)
     .use(remarkSlug)
+    .use(remarkExternalLinks)
     .use(remarkAutolinkHeadings, { behavior: 'wrap' })
     .use(remarkPrism, { transformInlineCode: true })
     .use(remarkHtml)

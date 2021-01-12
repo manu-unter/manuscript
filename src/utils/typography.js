@@ -43,7 +43,7 @@ const typographyOptions = {
     },
     {
       name: 'Open Sans',
-      styles: ['400', '400i', '500', '500i', '700', '700i'],
+      styles: ['400', '400i', '500', '500i', '700', '700i&display=fallback'],
     },
   ],
   overrideStyles: ({ rhythm }, options, styles) => ({
