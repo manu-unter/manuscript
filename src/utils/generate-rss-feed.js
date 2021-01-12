@@ -40,7 +40,10 @@ export default async function generateRssFeed() {
   });
 
   const feedXml = feed.xml();
-  writeFileSync('./public/rss.xml', feedXml);
+  writeFileSync('./public/rss.xml', feedXml).catch((error) => {
+    console.error(error);
+    process.exit(1);
+  });
 }
 
 generateRssFeed();
