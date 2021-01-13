@@ -50,10 +50,6 @@ export default function ArticleList({ articles }) {
                         layout="fill"
                         objectFit="cover"
                       />
-                      <img
-                        src={heroImageUrl}
-                        alt={heroImageAlt}
-                      />
                     </figure>
                   </article>
                 </a>
