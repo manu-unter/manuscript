@@ -3,6 +3,7 @@ import Link from 'next/link';
 import React from 'react';
 import Bio from '../components/Bio';
 import SEO from '../components/SEO';
+import generateRssFeed from '../utils/generate-rss-feed';
 import { formatPostDate, formatReadingTime } from '../utils/helpers';
 import { getAllArticles } from '../utils/transformation';
 import styles from './index.module.css';
@@ -62,5 +63,9 @@ export default function ArticleList({ articles }) {
 }
 
 export async function getStaticProps() {
+  const allArticles = await getAllArticles();
+
+  generateRssFeed(allArticles);
+
   return { props: { articles: await getAllArticles() } };
 }

@@ -1,11 +1,10 @@
 import { existsSync, mkdirSync, writeFileSync } from 'fs';
 import Rss from 'rss';
-import { getAllArticles } from './transformation';
 import config from '../../config';
 
 const { title, description, siteUrl, author } = config;
 
-export default async function generateRssFeed() {
+export default function generateRssFeed(allArticles) {
   const feed = new Rss({
     title,
     description,
@@ -15,7 +14,6 @@ export default async function generateRssFeed() {
     webMaster: author,
   });
 
-  const allArticles = await getAllArticles();
   allArticles.forEach(({ title, date, slug, spoiler, contentHtml }) => {
     const postText = `
         <div style="margin-top=55px; font-style: italic;">(This is an article posted to my blog at manuscript.blog. You can read it online by <a href="${
@@ -48,7 +46,3 @@ export default async function generateRssFeed() {
   writeFileSync('./public/rss.xml', feedXml);
 }
 
-generateRssFeed().catch((error) => {
-  console.error(error);
-  process.exit(1);
-});
