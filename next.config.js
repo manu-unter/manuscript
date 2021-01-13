@@ -5,12 +5,14 @@ module.exports = withImages({
   async redirects() {
     return [
       {
-        src: '/future-proof-data-fetching-with-resource-hooks/?',
+        source: '/future-proof-data-fetching-with-resource-hooks/?',
         destination: '/future-proof-data-fetching-with-react',
+        permanent: true,
       },
       {
-        src: '/giving-names-meaning/?',
+        source: '/giving-names-meaning/?',
         destination: '/how-to-give-meaningful-names',
+        permanent: true,
       },
     ];
   },

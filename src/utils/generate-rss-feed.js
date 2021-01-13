@@ -1,4 +1,4 @@
-import { writeFileSync } from 'fs';
+import { existsSync, mkdirSync, writeFileSync } from 'fs';
 import Rss from 'rss';
 import { getAllArticles } from './transformation';
 import config from '../../config';
@@ -40,10 +40,15 @@ export default async function generateRssFeed() {
   });
 
   const feedXml = feed.xml();
-  writeFileSync('./public/rss.xml', feedXml).catch((error) => {
-    console.error(error);
-    process.exit(1);
-  });
+
+  if (!existsSync('./public')) {
+    mkdirSync('./public');
+  }
+
+  writeFileSync('./public/rss.xml', feedXml);
 }
 
-generateRssFeed();
+generateRssFeed().catch((error) => {
+  console.error(error);
+  process.exit(1);
+});
