@@ -1,7 +1,7 @@
 import React from 'react';
 import Head from 'next/head';
 import PropTypes from 'prop-types';
-import config from '../../config';
+import config from '../config';
 
 const {
   title: siteTitle,

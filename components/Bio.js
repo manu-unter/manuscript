@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import React from 'react';
-import config from '../../config';
+import config from '../config';
 import profilePic from '../assets/profile-pic.jpg';
 import { rhythm } from '../utils/typography';
 import styles from './Bio.module.css';

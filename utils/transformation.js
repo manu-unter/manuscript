@@ -10,10 +10,10 @@ import remarkHtml from 'remark-html';
 import remarkPrism from 'remark-prism';
 import remarkSlug from 'remark-slug';
 import sanitizeHtml from 'sanitize-html';
-import { homepage as baseUrl } from '../../package.json';
+import { homepage as baseUrl } from '../package.json';
 
 const articleFileName = 'index.md';
-const relativeArticlesPath = join('src', 'articles');
+const relativeArticlesPath = 'articles';
 const articlesDirectory = join(process.cwd(), relativeArticlesPath);
 
 export function getAllArticleSlugs() {
@@ -63,7 +63,7 @@ export async function getArticle(slug) {
   const timeToRead = getTimeToRead(contentHtml);
 
   const heroImageUrl = `/${slug}.jpg`;
-  const editUrl = `https://github.com/${githubUsername}/${githubRepoName}/edit/master/src/articles/${slug}/${articleFileName}`;
+  const editUrl = `https://github.com/${githubUsername}/${githubRepoName}/edit/master/articles/${slug}/${articleFileName}`;
   const absoluteUrl = baseUrl + slug;
   const discussUrl = `https://mobile.twitter.com/search?q=${encodeURIComponent(
     absoluteUrl

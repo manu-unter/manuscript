@@ -42,7 +42,7 @@
   "scripts": {
     "dev": "next dev",
     "lint": "./node_modules/.bin/eslint --ext .js,.jsx --ignore-pattern public .",
-    "format": "prettier --write '{gatsby-*.js,src/**/*.{js,jsx,json,css}}'",
+    "format": "prettier --write '{**/*.{js,jsx,json,css}}'",
     "start": "next start",
     "build": "next build"
   },
@@ -52,7 +52,7 @@
     }
   },
   "lint-staged": {
-    "{src/**/*.{js,jsx,json,css}}": [
+    "{**/*.{js,jsx,json,css}}": [
       "yarn format",
       "git add"
     ]

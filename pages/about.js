@@ -1,8 +1,7 @@
 import Image from 'next/image';
 import React from 'react';
-import config from '../../config';
+import config from '../config';
 import profilePic from '../assets/profile-pic.jpg';
-import { rhythm } from '../utils/typography';
 import styles from './about.module.css';
 
 export default function About() {

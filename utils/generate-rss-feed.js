@@ -1,6 +1,6 @@
 import { existsSync, mkdirSync, writeFileSync } from 'fs';
 import Rss from 'rss';
-import config from '../../config';
+import config from '../config';
 
 const { title, description, siteUrl, author } = config;
 
