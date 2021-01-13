@@ -10,7 +10,6 @@
   "bugs": {
     "url": "https://github.com/manu-unter/manuscript/issues"
   },
-  "type": "module",
   "dependencies": {
     "@silvenon/remark-smartypants": "^1.0.0",
     "gray-matter": "^4.0.2",
