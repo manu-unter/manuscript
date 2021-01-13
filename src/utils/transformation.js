@@ -62,7 +62,7 @@ export async function getArticle(slug) {
   const contentHtml = await transformMarkdownIntoHtml(contentMarkdown);
   const timeToRead = getTimeToRead(contentHtml);
 
-  const heroImageUrl = `/hero-images/${slug}.jpg`;
+  const heroImageUrl = `/${slug}.jpg`;
   const editUrl = `https://github.com/${githubUsername}/${githubRepoName}/edit/master/src/articles/${slug}/${articleFileName}`;
   const absoluteUrl = baseUrl + slug;
   const discussUrl = `https://mobile.twitter.com/search?q=${encodeURIComponent(
