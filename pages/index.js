@@ -49,6 +49,7 @@ export default function ArticleList({ articles }) {
                         alt={heroImageAlt}
                         layout="fill"
                         objectFit="cover"
+                        sizes="(max-width: 40rem) 356px, 187px"
                       />
                     </figure>
                   </article>

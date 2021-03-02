@@ -1,4 +1,5 @@
 .figure {
     position: relative;
-    height: 33vh;
+    height: 21.375rem;
+    max-height: 33vh;
 }

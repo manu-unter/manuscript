@@ -50,6 +50,7 @@ export default function Article({
                 alt={heroImageAlt}
                 layout="fill"
                 objectFit="cover"
+                sizes="(max-width: 40rem) 100vh, 38rem"
                 className={styles.heroImage}
               />
             </figure>

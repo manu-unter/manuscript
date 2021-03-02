@@ -60,8 +60,8 @@ const typographyOptions = {
       background: 'var(--hr)',
     },
     blockquote: {
-      margin: '0 -1.3125rem 1.45rem',
-      padding: '0 1.3125rem 0 calc(1.3125rem - 3px)',
+      margin: '0 -1rem 1.45rem',
+      padding: '0 1rem 0 calc(1rem - 3px)',
       color: 'var(--textNormal)',
       fontStyle: 'italic',
       borderLeft: '3px solid var(--textLink)',
@@ -69,6 +69,9 @@ const typographyOptions = {
     'blockquote > *': {
       opacity: 0.8,
     },
+    small: {
+      fontSize: "75%",
+    }
   }),
 };
 

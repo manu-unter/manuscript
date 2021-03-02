@@ -1,7 +1,7 @@
 ---
 title: Future-Proof Data Fetching with React
 date: '2020-02-23'
-spoiler: 'Starting small but staying extensible. Only using the built-in reactivity and primitives in React - no additional library required'
+spoiler: 'With this pattern, you will lay a solid foundation for your data fetching: Start small but stay extensible. Only using the built-in primitives'
 cta: 'react'
 heroImageAlt: 'Several medical capsules'
 ---

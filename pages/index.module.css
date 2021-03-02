@@ -34,8 +34,9 @@
 
 .articlePreviewImage {
   position: relative;
-  flex-basis: 10%;
   margin-left: 0.875rem;
-  min-width: 3.5rem;
+  width: 3.5rem;
+  max-width: 10%;
   margin-bottom: 0;
+  flex-shrink: 0;
 }

@@ -5,9 +5,9 @@ function Panel({ children, style = {} }) {
     <p
       style={{
         borderRadius: '10px',
-        padding: '1.3125rem',
-        marginLeft: '-1.3125rem',
-        marginRight: '-1.3125rem',
+        padding: '1rem',
+        marginLeft: '-1rem',
+        marginRight: '-1rem',
         background: 'var(--inlineCode-bg)',
         wordBreak: 'keep-all',
         ...style,
